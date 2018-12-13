@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 // import { connect } from 'react-redux';
 import Registration from './Registration';
 import AboutUser from './AboutUser';
+import DeliverySchedule from './DeliverySchedule';
 import './styles/SignUp.scss';
 import userKeys from '../data/UserSignUpFields';
 
@@ -27,7 +28,6 @@ export default class Signup extends Component {
         user[key] = data[key];
       }
     });
-    console.log('main',user);
     this.setState({user});
   }
   
@@ -36,9 +36,18 @@ export default class Signup extends Component {
     case 1: {
       return <Registration goNext={this.nextStep} onSubmit={this.saveUser}/>;
     }
+
     case 2: {
-      console.log('yay');
       return <AboutUser goNext={this.nextStep} goPrevious={this.previousStep} onSubmit={this.saveUser}/>;
+    }
+
+    case 3: {
+      return <DeliverySchedule goNext={this.nextStep} goPrevious={this.previousStep} onSubmit={this.saveUser}/>;
+    }
+
+    case 4: {
+      console.log('yay',this.state.user);
+      return <DeliverySchedule goNext={this.nextStep} goPrevious={this.previousStep} onSubmit={this.saveUser}/>;
     }
   
     default: return;

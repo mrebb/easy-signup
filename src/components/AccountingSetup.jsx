@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import './styles/AboutUser.scss';
-const roles = ['Head Chef','Sous Chef', 'Purchasing', 'Owner'];
-const restaurantTypes= ['One Location','Regional(3-5 Locations)','National Chain','Grocery'];
-class AboutUser extends Component {
+const paymentMethods = ['EFT (DIRECT DEBIT)','CREDIT CARD'];
+const requestedTerms= ['CHARGE ON DELIVERY','NET 7','NET 14'];
+const financialInstitutionNames= ['BANK OF NOVA SCOTIA','CHASE'];
+
+class AccountingSetup extends Component {
   constructor(props) {
     super(props);
     this.defaultState = {
-      name: '',
-      role: 'Head Chef',
-      restaurantName: '',
-      restaurantType: 'Regional(3-5 Locations)',
-      phoneNumber:'',
-      companyAddress:'',
+      paymentMethod: 'EFT (DIRECT DEBIT)',
+      requestedTerms: 'NET 14',
+      accountingEmail: '',
+      financialInstitutionName: 'BANK OF NOVA SCOTIA',
+      bankBranchAddress:'',
+      accountNumber:'',
+      transitNumber:'',
     };
 
     const initialState = this.defaultState;
@@ -70,21 +72,26 @@ class AboutUser extends Component {
       <form  className="registration-form" onSubmit={this.onSubmit} autoComplete="off">
         
         <div className="form-header">
-          <h1>About You</h1>
+          <h1>Accounting Setup</h1>
         </div>
         <div className="flex-wrap">
           <TextField
             required
-            label="YOUR NAME"
-            type="text"
+            select
+            label="YOUR ROLE"
+            name="role"
             className="text-field"
-            id="name"
-            placeholder="YOUR NAME"
-            value={this.state.name}
+            id="role"
             style={{margin:'2%',flexBasis:300}}
-            name="name"
+            value={this.state.role}
             onChange={this.onChange}
-          />
+          >
+            {roles.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
           <br />
           <TextField
             required
@@ -106,6 +113,38 @@ class AboutUser extends Component {
           <br/>
           <TextField
             required
+            label="COMPANY ADDRESS"
+            type="text"
+            className="text-field"
+            id="companyAddress"
+            placeholder="COMPANY ADDRESS"
+            value={this.state.companyAddress}
+           
+            name="companyAddress"
+            style={{margin:'2%',flexBasis:900}}
+            onChange={this.onChange}
+          />
+          <br/>
+          <TextField
+            required
+            select
+            label="YOUR ROLE"
+            name="role"
+            className="text-field"
+            id="role"
+            style={{margin:'2%',flexBasis:900}}
+            value={this.state.role}
+            onChange={this.onChange}
+          >
+            {roles.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          <br/>
+          <TextField
+            required
             label="RESTAURANT NAME"
             type="text"
             className="text-field"
@@ -114,27 +153,9 @@ class AboutUser extends Component {
             value={this.state.restaurantName}
         
             name="restaurantName"
-            style={{margin:'2%',flexBasis:300}}
+            style={{margin:'2%',flexBasis:900}}
             onChange={this.onChange}
           />
-          <br />
-          <TextField
-            required
-            select
-            label="RESTAURANT TYPE"
-            name="restaurantType"
-            className="text-field"
-            id="restaurantType"
-            style={{margin:'2%',flexBasis:300}}
-            value={this.state.restaurantType}
-            onChange={this.onChange}
-          >
-            {restaurantTypes.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
           <br/>
           <TextField
             required
@@ -146,21 +167,21 @@ class AboutUser extends Component {
             value={this.state.phoneNumber}
           
             name="phoneNumber"
-            style={{margin:'2%',flexBasis:900}}
+            style={{margin:'2%',flexBasis:300}}
             onChange={this.onChange}
           />
           <br />
           <TextField
             required
             label="COMPANY ADDRESS"
-            type="text"
+            type="number"
             className="text-field"
             id="companyAddress"
             placeholder="COMPANY ADDRESS"
             value={this.state.companyAddress}
            
             name="companyAddress"
-            style={{margin:'2%',flexBasis:900}}
+            style={{margin:'2%',flexBasis:300}}
             onChange={this.onChange}
           />
           <br/>
@@ -198,4 +219,4 @@ class AboutUser extends Component {
 //   buttonText: PropTypes.string.isRequired,
 // };
 
-export default AboutUser;
+export default AccountingSetup;

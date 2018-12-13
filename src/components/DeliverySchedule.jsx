@@ -1,21 +1,18 @@
 import React, { Component } from 'react';
-// import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import './styles/AboutUser.scss';
-const roles = ['Head Chef','Sous Chef', 'Purchasing', 'Owner'];
-const restaurantTypes= ['One Location','Regional(3-5 Locations)','National Chain','Grocery'];
-class AboutUser extends Component {
+import './styles/DeliverySchedule.scss';
+const deliveriesFrom = ['9:00AM','10:00AM','11:00AM','12:00PM'];
+const deliveriesTo= ['1:00PM','2:00PM','3:00PM','4:00PM'];
+
+class DeliverySchedule extends Component {
   constructor(props) {
     super(props);
     this.defaultState = {
-      name: '',
-      role: 'Head Chef',
-      restaurantName: '',
-      restaurantType: 'Regional(3-5 Locations)',
-      phoneNumber:'',
-      companyAddress:'',
+      deliveriesFrom: '11:00AM',
+      deliveriesTo: '3:00PM',
+      specialInstructions:'',
     };
 
     const initialState = this.defaultState;
@@ -29,7 +26,7 @@ class AboutUser extends Component {
   /**
    * Handle form submission
    * Calls reducer method 
-   * @memberof AboutUser
+   * @memberof DeliverySchedule
    */
   onSubmit = event => {
     event.preventDefault();
@@ -41,7 +38,7 @@ class AboutUser extends Component {
   /**
    * Random alpha numeric unique string generator
    * Used as userID
-   * @memberof AboutUser
+   * @memberof DeliverySchedule
    */
   id = () => {
     return (
@@ -55,7 +52,7 @@ class AboutUser extends Component {
   /**
    * Updates state as it recieves input data from text input
    * 
-   * @memberof AboutUser
+   * @memberof DeliverySchedule
    */
   onChange = event => {
     const changedBit = {
@@ -70,96 +67,57 @@ class AboutUser extends Component {
       <form  className="registration-form" onSubmit={this.onSubmit} autoComplete="off">
         
         <div className="form-header">
-          <h1>About You</h1>
+          <h1>Delivery Schedule</h1>
         </div>
         <div className="flex-wrap">
-          <TextField
-            required
-            label="YOUR NAME"
-            type="text"
-            className="text-field"
-            id="name"
-            placeholder="YOUR NAME"
-            value={this.state.name}
-            style={{margin:'2%',flexBasis:300}}
-            name="name"
-            onChange={this.onChange}
-          />
-          <br />
-          <TextField
-            required
-            select
-            label="YOUR ROLE"
-            name="role"
-            className="text-field"
-            id="role"
-            style={{margin:'2%',flexBasis:300}}
-            value={this.state.role}
-            onChange={this.onChange}
-          >
-            {roles.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-          <br/>
-          <TextField
-            required
-            label="RESTAURANT NAME"
-            type="text"
-            className="text-field"
-            id="restaurantName"
-            placeholder="RESTAURANT NAME"
-            value={this.state.restaurantName}
-        
-            name="restaurantName"
-            style={{margin:'2%',flexBasis:300}}
-            onChange={this.onChange}
-          />
-          <br />
-          <TextField
-            required
-            select
-            label="RESTAURANT TYPE"
-            name="restaurantType"
-            className="text-field"
-            id="restaurantType"
-            style={{margin:'2%',flexBasis:300}}
-            value={this.state.restaurantType}
-            onChange={this.onChange}
-          >
-            {restaurantTypes.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-          <br/>
-          <TextField
-            required
-            label="PHONE NUMBER"
-            type="number"
-            className="text-field"
-            id="phoneNumber"
-            placeholder="()-XXX-XXXX"
-            value={this.state.phoneNumber}
           
-            name="phoneNumber"
-            style={{margin:'2%',flexBasis:900}}
-            onChange={this.onChange}
-          />
-          <br />
           <TextField
             required
-            label="COMPANY ADDRESS"
+            select
+            label="DELIVERIES FROM"
+            name="deliveriesFrom"
+            className="text-field"
+            id="deliveriesFrom"
+            style={{margin:'2%',flexBasis:300}}
+            value={this.state.deliveriesFrom}
+            onChange={this.onChange}
+          >
+            {deliveriesFrom.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          <br/>
+          
+          <TextField
+            required
+            select
+            label="DELIVERIES TO"
+            name="deliveriesTo"
+            className="text-field"
+            id="deliveriesTo"
+            style={{margin:'2%',flexBasis:300}}
+            value={this.state.deliveriesTo}
+            onChange={this.onChange}
+          >
+            {deliveriesTo.map(option => (
+              <MenuItem key={option} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </TextField>
+          <br/>
+          <TextField
+            required
+            label="SPECIAL INSTRUCTIONS"
             type="text"
             className="text-field"
-            id="companyAddress"
+            id="specialInstructions"
             placeholder="COMPANY ADDRESS"
-            value={this.state.companyAddress}
+            value={this.state.specialInstructions}
            
-            name="companyAddress"
+            name="specialInstructions"
             style={{margin:'2%',flexBasis:900}}
             onChange={this.onChange}
           />
@@ -193,9 +151,9 @@ class AboutUser extends Component {
   }
 }
 
-// AboutUser.propTypes = {
+// DeliverySchedule.propTypes = {
 //   onComplete: PropTypes.func.isRequired,
 //   buttonText: PropTypes.string.isRequired,
 // };
 
-export default AboutUser;
+export default DeliverySchedule;

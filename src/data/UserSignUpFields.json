@@ -6,5 +6,8 @@
   "restaurantName": "",
   "restaurantType": "",
   "phoneNumber":"",
-  "companyAddress":""
+  "companyAddress":"",
+  "deliveriesFrom":"",
+  "deliveriesTo":"",
+  "specialInstructions":""
 }
