@@ -1,0 +1,14 @@
+{
+    "presets": [
+      "react",
+      "env"
+    ],
+    "plugins": [
+      "transform-es2015-destructuring",
+      "transform-object-rest-spread",
+      "transform-class-properties",
+      "transform-decorators",
+      "transform-react-constant-elements",
+      "transform-react-inline-elements"
+    ]
+  }

@@ -1,0 +1,13 @@
+$screen-desktop-min: 600px;
+
+.registration-form {
+  background-color: var(--white);
+  // margin-left: 15%;
+  // margin-right: 15%;
+  border-radius: 1rem;
+}
+@media only screen and (min-width: #{$screen-desktop-min}) {
+  .registration-form {
+    
+  }
+}
