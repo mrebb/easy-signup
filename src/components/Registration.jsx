@@ -3,8 +3,8 @@ import React, { Fragment, Component } from 'react';
 // import { Redirect } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-// import { login } from '../store/actions/auth-action';
-import configuredUsers from '../data/users';
+// import { Registration } from '../store/actions/auth-action';
+
 import './styles/Registration.scss';
 
 export default class Registration extends Component {
@@ -14,15 +14,14 @@ export default class Registration extends Component {
       email: '',
       password: '',
       confirmPassword:'',
-      isGoNext: false,
     };
     this.state = { ...this.initialState };
   }
   
   /**
-   * Updates state as it recieves input data login form
+   * Updates state as it recieves input data Registration form
    *
-   * @memberof Login
+   * @memberof Registration
    */
   onChange = event => {
     const changedBit = {
@@ -32,91 +31,111 @@ export default class Registration extends Component {
   };
 
   /**
-   * Handle authentication of user
-   * Calls reducer method 'login'
-   * @memberof Login
+   * Handle form submission
+   * Calls reducer method 
+   * @memberof Registration
    */
   onSubmit = event => {
     event.preventDefault();
-    if (this.validateUser(this.state.username)) {
-      this.props.login(this.state.username);
-      this.setState({ redirect: true });
-    } else {
-      alert('invalid user');
-      this.setState({ ...this.initialState });
-    }
+    const data = {...this.state};
+    console.log('data',data);
+    this.props.goNext();
+    this.props.onSubmit(data);
   };
 
   /**
    * @param {username} currentUser
    * @return boolean
-   * @memberof Login
+   * @memberof Registration
    */
-  validateUser = currentUser => {
-    return configuredUsers.filter(user => user.username === currentUser.toLowerCase())
-      .length > 0
-      ? true
-      : false;
-  };
+  // validateUser = currentUser => {
+  //   return configuredUsers.filter(user => user.username === currentUser.toLowerCase())
+  //     .length > 0
+  //     ? true
+  //     : false;
+  // };
 
   render() {
     return (
       <Fragment>
-        <h1>Registration</h1>
+       
+        {/* <div className="input-form"> */}
         <form
           className="registration-form"
           onSubmit={this.onSubmit}
           autoComplete="off"
         >
-          <TextField
-            required
-            label="EMAIL"
-            placeholder="johndoe@example.com"
-            value={this.state.username}
-            margin="normal"
-            name="email"
-            onChange={this.onChange}
-          />
-          <br />
-          <TextField
-            required
-            label="PASSWORD"
-            placeholder=""
-            value={this.state.password}
-            margin="normal"
-            name="password"
-            onChange={this.onChange}
-          />
-          <br />
-          <TextField
-            required
-            label="CONFIRMPASSWORD"
-            placeholder=""
-            value={this.state.confirmPassword}
-            margin="normal"
-            name="confirmPassword"
-            onChange={this.onChange}
-          />
-          <br/>
-          <Button
-            label="Submit"
-            style={{
-              margin: 15,
-            }}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
+          <div className="form-header">
+            <h1>Registration</h1>
+          </div>
+          <div className="flex-wrap">
+            <TextField
+              required
+              type="email"
+              label="EMAIL"
+              className="text-field"
+              // error= {this.state.email===''}
+              helperText="Required Field"
+              id="email"
+              placeholder="johndoe@example.com"
+              value={this.state.email}
+              // fullWidth={true}
+              style={{margin:'2%',flexBasis:900}}
+              name="email"
+              onChange={this.onChange}
+            />
+            <br />
+            <TextField
+              required
+              type="password"
+              label="PASSWORD"
+              placeholder=""
+              className="text-field"
+              // error= {this.state.email===''}
+              helperText="Required Field"
+              id="password"
+              value={this.state.password}
+              style={{margin:'2%',flexBasis:900}}
+              margin="normal"
+              name="password"
+              onChange={this.onChange}
+            />
+            <br />
+            <TextField
+              required
+              type="password"
+              label="CONFIRM PASSWORD"
+              placeholder=""
+              // error= {this.state.email===''}
+              helperText="Required Field"
+              className="text-field"
+              value={this.state.confirmPassword}
+              margin="normal"
+              id="confirmPassword"
+              name="confirmPassword"
+              style={{margin:'2%',flexBasis:900}}
+              onChange={this.onChange}
+            />
+            <br/>
+            <Button
+              label="Submit"
+              id="next"
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
             Next
-          </Button>
+            </Button>
+          </div>
         </form>
+        {/* </div> */}
         {/* {this.state.isGoNext && <Redirect to="/dashboard" />} */}
       </Fragment>
     );
   }
 }
 // const mapStateToProps = ({ authState }) => ({ auth: authState });
-// const mapDispatchToProps = { login };
+// const mapDispatchToProps = { Registration };
 
 // export default connect(
 //   mapStateToProps,

@@ -1,0 +1,10 @@
+{
+  "email":"",
+  "password":"",
+  "name":"",
+  "role": "",
+  "restaurantName": "",
+  "restaurantType": "",
+  "phoneNumber":"",
+  "companyAddress":""
+}

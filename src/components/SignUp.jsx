@@ -4,35 +4,45 @@ import React, { Component } from 'react';
 import Registration from './Registration';
 import AboutUser from './AboutUser';
 import './styles/SignUp.scss';
+import userKeys from '../data/UserSignUpFields';
 
 export default class Signup extends Component {
   constructor(props) {
     super(props);
     this.state ={
       step: 1,
+      user:{},
     };
   }
-  updateStep(){
-    let step = this.step;
-    step++;
-    this.setState({step});
+  nextStep = () => {
+    this.setState({step:this.state.step+1});
   }
-  show = (step)=>{
-    switch(step) {
+  previousStep = () => {
+    this.setState({step:this.state.step-1});
+  }
+  saveUser = (data) => {
+    const user = {...this.state.user};
+    Object.keys(userKeys).forEach((key)=>{
+      if(data[key]){
+        user[key] = data[key];
+      }
+    });
+    console.log('main',user);
+    this.setState({user});
+  }
+  
+  render(){
+    switch(this.state.step) {
     case 1: {
-      return <Registration onComplete={this.updateStep}/>;
+      return <Registration goNext={this.nextStep} onSubmit={this.saveUser}/>;
     }
     case 2: {
-      return <AboutUser onComplete={this.updateStep}/>;
+      console.log('yay');
+      return <AboutUser goNext={this.nextStep} goPrevious={this.previousStep} onSubmit={this.saveUser}/>;
     }
   
     default: return;
     }
-  }
-  render(){
-    return(
-      this.show(this.state.step)
-    );
   }
 }
 // const mapStateToProps = state => ({

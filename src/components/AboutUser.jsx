@@ -14,18 +14,31 @@ class AboutUser extends Component {
       restaurantType: ['One Location','Regional(3-5 Locations)','National Chain','Grocery'],
       phoneNumber:'',
       companyAddress:'',
-      isGoNext:false,
     };
 
     const initialState = this.defaultState;
 
     this.state = { ...initialState };
   }
-
+  goPrevious = () =>{
+    this.props.goPrevious();
+  }
+  /**
+   * Handle form submission
+   * Calls reducer method 
+   * @memberof AboutUser
+   */
+  onSubmit = event => {
+    event.preventDefault();
+    const data = {...this.state};
+    console.log('data',data);
+    this.props.goNext();
+    this.props.onSubmit(data);
+  };
   /**
    * Random alpha numeric unique string generator
-   * Used as article id
-   * @memberof ArticleForm
+   * Used as userID
+   * @memberof AboutUser
    */
   id = () => {
     return (
@@ -35,21 +48,11 @@ class AboutUser extends Component {
         .substr(2, 9)
     );
   };
-  
-  /**
-   * calls props method with article form data
-   * passes article data to props method recieved from parent
-   * @memberof ArticleForm
-   */
-  onSubmit = event => {
-    event.preventDefault();
-    this.setState({ isGoNext:true });
-  };
 
   /**
    * Updates state as it recieves input data from text input
    * 
-   * @memberof Article
+   * @memberof AboutUser
    */
   onChange = event => {
     const changedBit = {
@@ -60,14 +63,22 @@ class AboutUser extends Component {
 
   render() {
     return (
-      <div className = "about-user-form-container">
-        <form onSubmit={this.onSubmit} autoComplete="off">
+      // <div className = "about-user-form-container">
+      <form  className="registration-form" onSubmit={this.onSubmit} autoComplete="off">
+        
+        <div className="form-header">
+          <h1>Registration</h1>
+        </div>
+        <div className="flex-wrap">
           <TextField
             required
             label="YOUR NAME"
+            type="text"
+            className="text-field"
+            id="name"
             placeholder="YOUR NAME"
-            value={this.state.title}
-            margin="normal"
+            value={this.state.name}
+            style={{margin:'2%',flexBasis:400}}
             name="name"
             onChange={this.onChange}
           />
@@ -75,45 +86,70 @@ class AboutUser extends Component {
           <TextField
             required
             label="RESTAURANT NAME"
+            type="text"
+            className="text-field"
+            id="restaurantName"
             placeholder="RESTAURANT NAME"
             value={this.state.restaurantName}
-            margin="normal"
+        
             name="restaurantName"
+            style={{margin:'2%',flexBasis:400}}
             onChange={this.onChange}
           />
           <br />
           <TextField
+            required
             label="PHONE NUMBER"
+            type="number"
+            className="text-field"
+            id="phoneNumber"
             placeholder="()-XXX-XXXX"
             value={this.state.phoneNumber}
-            margin="normal"
-            name="thumbnail"
+          
+            name="phoneNumber"
+            style={{margin:'2%',flexBasis:900}}
             onChange={this.onChange}
           />
           <br />
           <TextField
+            required
             label="COMPANY ADDRESS"
+            type="text"
+            className="text-field"
+            id="companyAddress"
             placeholder="COMPANY ADDRESS"
             value={this.state.companyAddress}
-            margin="normal"
+           
             name="companyAddress"
+            style={{margin:'2%',flexBasis:900}}
             onChange={this.onChange}
           />
           <br/>
-          <Button
-            label="NEXT"
-            style={{
-              margin: 15,
-            }}
-            type="submit"
-            variant="contained"
-            color="primary"
-          >
+          <div className="BtnGroup">
+            <Button
+              label="PREVIOUS"
+              onClick={this.goPrevious}
+              id="previous-2"
+              type="button"
+              variant="contained"
+              color="primary"
+            >
+            PREVIOUS
+            </Button>
+            <Button
+              label="NEXT"
+              id="next-2"
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
             NEXT
-          </Button>
-        </form>
-        {/* {this.state.isGoNext && <p style={{color:'green'}}>Successfully posted!!</p>} */}
-      </div>
+            </Button>
+          </div>
+        </div>
+      </form>
+    // {/* {this.state.isGoNext && <p style={{color:'green'}}>Successfully posted!!</p>} */}
+      // </div>
     );
   }
 }

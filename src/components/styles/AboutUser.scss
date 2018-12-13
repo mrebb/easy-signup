@@ -12,3 +12,27 @@
     padding: 5px;
     background-color:var(--white);
   }
+  #previous-2{
+    // margin-left: 5%;
+    // margin-bottom: 5%;
+    // margin-top: 7%;
+  }
+  #next-2{
+    
+  }
+  
+  
+  @media only screen and (min-width:600px) {
+    #next-2{
+      margin-right: 10rem;
+    }
+    #previous-2{
+      
+    }
+    .BtnGroup{
+      margin-left: 10rem;
+      // margin-bottom: 3rem;
+      display: inline;
+    }
+    
+  }

@@ -1,4 +1,4 @@
-$screen-desktop-min: 745px;
+$screen-desktop-min: 600px;
 .header-main{
     background: var(--bluemix);
     margin: 0;
@@ -11,22 +11,18 @@ $screen-desktop-min: 745px;
     }
   
 .header-text-center{
-    display: block;
+    display: inline-flex;
     color: var(--white);
     opacity: 0.8;
-    font-size: 15px;
-    font-family: var(--special);
+    text-align: center;
+    margin-left: 25%;
+    // font-family: var(--special);
     }
 
-@media only screen and (min-width:#{$screen-desktop-min}){
-    .header-logoSize{
-        float: left;
-        margin: 1%;
-        }
-      
+@media only screen and (min-width:#{$screen-desktop-min}){   
     .header-text-center{
-        display: inline-block;
-        margin-right: 20%;
+        display: inline-flex;
         font-size: 40px;
+        margin-left: 40%;
         }
     }
