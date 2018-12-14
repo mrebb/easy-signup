@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import './styles/AboutUser.scss';
-const roles = ['Head Chef','Sous Chef', 'Purchasing', 'Owner'];
-const restaurantTypes= ['One Location','Regional(3-5 Locations)','National Chain','Grocery'];
+import { roles,restaurantTypes} from '../data/Constants';
 
 class AboutUser extends Component {
   constructor(props) {

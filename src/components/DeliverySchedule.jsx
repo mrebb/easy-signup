@@ -6,8 +6,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import './styles/DeliverySchedule.scss';
-const deliveriesFrom = ['9:00AM','10:00AM','11:00AM','12:00PM'];
-const deliveriesTo= ['1:00PM','2:00PM','3:00PM','4:00PM'];
+import { deliveriesFrom,deliveriesTo } from '../data/Constants';
 
 class DeliverySchedule extends Component {
   constructor(props) {

@@ -1,14 +1,13 @@
-import React, {Fragment, Component } from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../store/actions/signup-action';
 import { saveUser } from '../store/actions/users-action';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
-const paymentMethods = ['EFT (DIRECT DEBIT)', 'CREDIT CARD'];
-const requestedTerms = ['CHARGE ON DELIVERY', 'NET 7', 'NET 14'];
-const financialInstitutionNames = ['BANK OF NOVA SCOTIA', 'CHASE'];
+import { paymentMethods, requestedTerms } from '../data/Constants';
+import EFT from './EFTForm';
+import CreditCardForm from './CreditCardForm';
 
 class AccountingSetup extends Component {
   constructor(props) {
@@ -17,7 +16,8 @@ class AccountingSetup extends Component {
       paymentMethod: this.props.user.paymentMethod || 'EFT (DIRECT DEBIT)',
       requestedTerms: this.props.user.requestedTerms || 'NET 14',
       accountingEmail: this.props.user.accountingEmail || '',
-      financialInstitutionName:this.props.user.financialInstitutionName || 'BANK OF NOVA SCOTIA',
+      financialInstitutionName:
+        this.props.user.financialInstitutionName || 'BANK OF NOVA SCOTIA',
       bankBranchAddress: this.props.user.bankBranchAddress || '',
       accountNumber: this.props.user.accountNumber || '',
       transitNumber: this.props.user.transitNumber || '',
@@ -25,18 +25,16 @@ class AccountingSetup extends Component {
       nameOnCreditCard: this.props.user.nameOnCreditCard || '',
       creditCardExpiry: this.props.user.creditCardExpiry || '',
       cvc: this.props.user.cvc || '',
-      showEFT:this.props.paymentMethod,
+      showEFT: true,
     };
   }
   componentDidMount() {
-    if(this.props.paymentMethod==='default'){
-      this.setState({showEFT:true});
-    }
-    else{
-      this.setState({showEFT:this.props.paymentMethod});
+    if (this.props.user.paymentMethod === 'CREDIT CARD') {
+      this.setState({ showEFT: false });
+    } else if (this.props.user.paymentMethod === 'EFT (DIRECT DEBIT)') {
+      this.setState({ showEFT: true });
     }
   }
-  
 
   goPrevious = () => {
     const data = { ...this.state };
@@ -53,7 +51,6 @@ class AccountingSetup extends Component {
     const data = { ...this.state };
     this.props.goNext();
     this.props.createUser(data);
-    this.props.updatePaymentMethod(this.state.showEFT);
   };
 
   selectPaymentMethod = event => {
@@ -134,126 +131,23 @@ class AccountingSetup extends Component {
             onChange={this.onChange}
           />
           <br />
-          {this.state.showEFT ?
-            <Fragment>
-              <InputLabel style={{ margin: ' 2%', fontWeight: '900' }}>
-            EFT CREDIT INFORMATION
-              </InputLabel>
-              <br />
-              <TextField
-                required
-                select
-                label="FINANCIAL INSTITUTION NAME"
-                name="financialInstitutionName"
-                className="text-field"
-                id="financialInstitutionName"
-                maxLength="50"
-                style={{ margin: '2%', flexBasis: 650 }}
-                value={this.state.financialInstitutionName || 'BANK OF NOVA SCOTIA'}
-                onChange={this.onChange}
-              >
-                {financialInstitutionNames.map(option => (
-                  <MenuItem key={option} value={option}>
-                    {option}
-                  </MenuItem>
-                ))}
-              </TextField>
-              <br />
-              <TextField
-                required
-                label="BANK BRANCH ADDRESS"
-                type="text"
-                className="text-field"
-                id="bankBranchAddress"
-                placeholder="123 main street.."
-                value={this.state.bankBranchAddress || ''}
-                maxLength="250"
-                name="bankBranchAddress"
-                style={{ margin: '2%', flexBasis: 650 }}
-                onChange={this.onChange}
-              />
-              <br />
-              <TextField
-                required
-                label="ACCOUNT NUMBER"
-                type="number"
-                className="text-field"
-                id="accountNumber"
-                value={this.state.accountNumber || ''}
-                name="accountNumber"
-                style={{ margin: '2%', flexBasis: 310 }}
-                onChange={this.onChange}
-              />
-              <br />
-              <TextField
-                required
-                label="TRANSIT NUMBER"
-                type="number"
-                className="text-field"
-                id="transitNumber"
-                // maxLength="50"
-                value={this.state.transitNumber || ''}
-                name="transitNumber"
-                style={{ margin: '2%', flexBasis: 310 }}
-                onChange={this.onChange}
-              />
-            </Fragment> :
-            <Fragment>
-              <InputLabel style={{ margin: ' 2%', fontWeight: '900' }}>
-            CREDIT CARD INFORMATION
-              </InputLabel>
-              <br />
-              <TextField
-                required
-                label="CREDIT CARD NUMBER"
-                type="number"
-                className="text-field"
-                id="creditCardNumber"
-                value={this.state.creditCardNumber || ''}
-                name="creditCardNumber"
-                style={{ margin: '2%', flexBasis: 650 }}
-                onChange={this.onChange}
-              />
-              <br />
-              <TextField
-                required
-                label="NAME ON CREDIT CARD"
-                type="text"
-                className="text-field"
-                id="nameOnCreditCard"
-                maxLength="50"
-                value={this.state.nameOnCreditCard || ''}
-                name="nameOnCreditCard"
-                style={{ margin: '2%', flexBasis: 650 }}
-                onChange={this.onChange}
-              />
-              <br />
-              <TextField
-                required
-                label="EXPIRY (MM/YYYY)"
-                type="text"
-                className="text-field"
-                id="creditCardExpiry"
-                maxLength="7"
-                value={this.state.creditCardExpiry || ''}
-                name="creditCardExpiry"
-                style={{ margin: '2%', flexBasis: 310 }}
-                onChange={this.onChange}
-              />
-              <br />
-              <TextField
-                required
-                label="CVC"
-                type="number"
-                className="text-field"
-                id="cvc"
-                value={this.state.cvc || ''}
-                name="cvc"
-                style={{ margin: '2%', flexBasis: 310 }}
-                onChange={this.onChange}
-              />
-            </Fragment>
-          }
+          {this.state.showEFT ? (
+            <EFT
+              financialInstitutionName={this.state.financialInstitutionName}
+              accountNumber={this.state.accountNumber}
+              transitNumber={this.state.transitNumber}
+              bankBranchAddress={this.state.bankBranchAddress}
+              onChange={this.onChange}
+            />
+          ) : (
+            <CreditCardForm
+              onChange={this.onChange}
+              creditCardNumber={this.state.creditCardNumber}
+              nameOnCreditCard={this.state.nameOnCreditCard}
+              creditCardExpiry={this.state.creditCardExpiry}
+              cvc={this.state.cvc}
+            />
+          )}
           <br />
           <div className="BtnGroup">
             <Button
@@ -286,7 +180,7 @@ const mapStateToProps = state => ({
   user: state.signupState,
   users: state.usersState,
 });
-const mapDispatchToProps = {createUser,saveUser};
+const mapDispatchToProps = { createUser, saveUser };
 
 export default connect(
   mapStateToProps,

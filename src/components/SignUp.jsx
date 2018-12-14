@@ -15,7 +15,6 @@ class Signup extends Component {
     super(props);
     this.state = {
       step: 1,
-      showEFT: 'default',
     };
   }
 
@@ -25,10 +24,6 @@ class Signup extends Component {
 
   previousStep = () => {
     this.setState({ step: this.state.step - 1 });
-  };
-  
-  savePaymentMethod = flag => {
-    this.setState({ showEFT: flag });
   };
   
   render() {
@@ -61,8 +56,6 @@ class Signup extends Component {
     case 4: {
       return (
         <AccountingSetup
-          updatePaymentMethod={this.savePaymentMethod}
-          paymentMethod={this.state.showEFT}
           goNext={this.nextStep}
           goPrevious={this.previousStep}
         />
