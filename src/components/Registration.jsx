@@ -1,12 +1,12 @@
 import React, { Fragment, Component } from 'react';
-// import { connect } from 'react-redux';
-// import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-// import { Registration } from '../store/actions/auth-action';
+import { createUser } from '../store/actions/signup-action';
+import { saveUser } from '../store/actions/users-action';
 import './styles/Registration.scss';
-const users = JSON.parse(window.localStorage.getItem('users')) || [];
-export default class Registration extends Component {
+
+class Registration extends Component {
   constructor(props) {
     super(props);
     this.defaultState = {
@@ -14,6 +14,7 @@ export default class Registration extends Component {
       password: '',
       confirmPassword:'',
       error:false,
+      isUserDuplicate:false,
     };
     this.initialState = this.props.user || this.defaultState;
     this.state = { ...this.initialState };
@@ -43,6 +44,9 @@ export default class Registration extends Component {
         this.setState({error});
       }
     }
+    if(this.state.isUserDuplicate && event.target.name==='email'){
+      this.setState({isUserDuplicate:false});
+    }
     
   };
 
@@ -53,17 +57,14 @@ export default class Registration extends Component {
    */
   onSubmit = event => {
     event.preventDefault();
-    if(this.state.password===this.state.confirmPassword){
-      let email = this.state.email;
-      if(!this.isDuplicateEmailFound(email)){
-        const data = {...this.state};
-        console.log('data',data);
-        this.props.goNext();
-        this.props.onSubmit(data);
-      }
-      else{
-        alert('email already taken');
-      }
+    let email = this.state.email;
+    if(this.isDuplicateEmailFound(email)){
+      this.setState({isUserDuplicate:true});
+    }
+    else if(this.state.password===this.state.confirmPassword){
+      const data = {...this.state};
+      this.props.goNext();
+      this.props.createUser(data);
     }
     else{
       this.setState({error:true});
@@ -71,12 +72,12 @@ export default class Registration extends Component {
   };
 
   /**
-   * @param {username} currentUser
+   * @param {email}
    * @return boolean
    * @memberof Registration
    */
   isDuplicateEmailFound = (email) => {
-    return users.filter(user => user.email.toLowerCase() === email.toLowerCase())
+    return this.props.users.filter(user => user.email.toLowerCase() === email.toLowerCase())
       .length > 0
       ? true
       : false;
@@ -102,7 +103,8 @@ export default class Registration extends Component {
               label="EMAIL"
               className="text-field"
               maxLength="50"
-              helperText="Required Field"
+              error= {this.state.isUserDuplicate===true}
+              helperText={this.state.isUserDuplicate?'Email address already registered':''}
               id="email"
               placeholder="johndoe@example.com"
               value={this.state.email || ''}
@@ -119,8 +121,6 @@ export default class Registration extends Component {
               maxLength="50"
               placeholder=""
               className="text-field"
-              // error= {this.state.email===''}
-              helperText="Required Field"
               id="password"
               value={this.state.password || ''}
               style={{margin:'2%',flexBasis:650}}
@@ -156,16 +156,17 @@ export default class Registration extends Component {
             </Button>
           </div>
         </form>
-        {/* </div> */}
-        {/* {this.state.isGoNext && <Redirect to="/dashboard" />} */}
       </Fragment>
     );
   }
 }
-// const mapStateToProps = ({ authState }) => ({ auth: authState });
-// const mapDispatchToProps = { Registration };
+const mapStateToProps = state => ({
+  user: state.signupState,
+  users: state.usersState,
+});
+const mapDispatchToProps = {createUser,saveUser};
 
-// export default connect(
-//   mapStateToProps,
-//   mapDispatchToProps
-// )(Registration);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Registration);

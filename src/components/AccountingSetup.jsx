@@ -1,4 +1,7 @@
 import React, {Fragment, Component } from 'react';
+import { connect } from 'react-redux';
+import { createUser } from '../store/actions/signup-action';
+import { saveUser } from '../store/actions/users-action';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -37,9 +40,8 @@ class AccountingSetup extends Component {
 
   goPrevious = () => {
     const data = { ...this.state };
-    // console.log('data with previous click', data);
     this.props.goPrevious();
-    this.props.onSubmit(data);
+    this.props.createUser(data);
   };
   /**
    * Handle form submission
@@ -49,25 +51,11 @@ class AccountingSetup extends Component {
   onSubmit = event => {
     event.preventDefault();
     const data = { ...this.state };
-    // console.log('data', data);
     this.props.goNext();
-    this.props.onSubmit(data);
+    this.props.createUser(data);
     this.props.updatePaymentMethod(this.state.showEFT);
+  };
 
-  };
-  /**
-   * Random alpha numeric unique string generator
-   * Used as userID
-   * @memberof AboutUser
-   */
-  id = () => {
-    return (
-      '_' +
-      Math.random()
-        .toString(36)
-        .substr(2, 9)
-    );
-  };
   selectPaymentMethod = event => {
     this.onChange(event);
     event.target.value === 'EFT (DIRECT DEBIT)'
@@ -88,7 +76,6 @@ class AccountingSetup extends Component {
 
   render() {
     return (
-      // <div className = "about-user-form-container">
       <form
         className="registration-form"
         onSubmit={this.onSubmit}
@@ -291,15 +278,17 @@ class AccountingSetup extends Component {
           </div>
         </div>
       </form>
-      // {/* {this.state.isGoNext && <p style={{color:'green'}}>Successfully posted!!</p>} */}
-      // </div>
     );
   }
 }
 
-// AboutUser.propTypes = {
-//   onComplete: PropTypes.func.isRequired,
-//   buttonText: PropTypes.string.isRequired,
-// };
+const mapStateToProps = state => ({
+  user: state.signupState,
+  users: state.usersState,
+});
+const mapDispatchToProps = {createUser,saveUser};
 
-export default AccountingSetup;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AccountingSetup);

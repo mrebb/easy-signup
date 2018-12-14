@@ -1,10 +1,12 @@
 // Actions for User reducer
-export const ADD = 'ADD';
+export const CREATE = 'CREATE';
 
-//Action creators for User reducer
-export const addUser=(user)=>{
+//Action creators for user signup reducer
+
+//This is called by components as user signup process iterates through all steps untill all done
+export const createUser=(user)=>{
   return {
-    type:ADD,
+    type:CREATE,
     payload: user,
   };
 };

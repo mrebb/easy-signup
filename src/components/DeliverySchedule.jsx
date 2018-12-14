@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { createUser } from '../store/actions/signup-action';
+import { saveUser } from '../store/actions/users-action';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -18,9 +21,8 @@ class DeliverySchedule extends Component {
   
   goPrevious = () =>{
     const data = {...this.state};
-    console.log('data with previous click',data);
     this.props.goPrevious();
-    this.props.onSubmit(data);
+    this.props.createUser(data);
   }
   /**
    * Handle form submission
@@ -30,24 +32,10 @@ class DeliverySchedule extends Component {
   onSubmit = event => {
     event.preventDefault();
     const data = {...this.state};
-    console.log('data',data);
     this.props.goNext();
-    this.props.onSubmit(data);
+    this.props.createUser(data);
   };
-  /**
-   * Random alpha numeric unique string generator
-   * Used as userID
-   * @memberof DeliverySchedule
-   */
-  id = () => {
-    return (
-      '_' +
-      Math.random()
-        .toString(36)
-        .substr(2, 9)
-    );
-  };
-
+  
   /**
    * Updates state as it recieves input data from text input
    * 
@@ -151,9 +139,13 @@ class DeliverySchedule extends Component {
   }
 }
 
-// DeliverySchedule.propTypes = {
-//   onComplete: PropTypes.func.isRequired,
-//   buttonText: PropTypes.string.isRequired,
-// };
+const mapStateToProps = state => ({
+  user: state.signupState,
+  users: state.usersState,
+});
+const mapDispatchToProps = {createUser,saveUser};
 
-export default DeliverySchedule;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(DeliverySchedule);

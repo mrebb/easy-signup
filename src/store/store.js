@@ -1,11 +1,12 @@
 import { createStore, combineReducers, applyMiddleware, compose } from 'redux';
 import thunk from 'redux-thunk';
-import signUpReducer from './reducer/signup.js';
+import signupReducer from './reducer/signup.js';
+import UsersReducer from './reducer/users.js';
 import logger from '../middleware/logger.js';
 import validator from '../middleware/validator.js';
 
 const appReducer = combineReducers({
-  signUpState: signUpReducer,
+  signupState: signupReducer,usersState:UsersReducer,
 });
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

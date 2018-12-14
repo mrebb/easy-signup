@@ -1,31 +1,33 @@
+import { CREATE } from '../actions/signup-action.js';
+import userSignupFields from '../../data/UserSignUpFields.json';
 
-import {ADD} from '../actions/signup-action.js';
-
-const initialState = JSON.parse(window.localStorage.getItem('user')) || {isLoggedIn: false,username:null} ;
-
+const initialState = {};
 /**
  *
- * auth reducer for handling auth state
- * @export auth reducer
+ * signup reducer for handling user signup state
+ * @export signup reducer
  * @param {*} [state=initialState]
  * @param {*} action
  * @returns updated state
  */
-export default function reducer (state = initialState, action) {
-
-  let {type, payload} = action;
-
-  switch(type) {
-  case ADD: {
-    const token = {isLoggedIn: true, username:payload.username};
-    window.localStorage.setItem(
-      'user',
-      JSON.stringify(token)
-    );
-    return {...state, ...payload};
-    
-  }
+export default function reducer(state = initialState, action) {
   
-  default: return state;
+  const { type, payload } = action;
+  
+  switch (type) {
+
+  case CREATE: {
+    const data = { ...payload };
+    const user = {};
+    Object.keys(userSignupFields).forEach(key => {
+      if (data[key]) {
+        user[key] = data[key];
+      }
+    });
+    return { ...state, ...user };
   }
-};
+
+  default:
+    return state;
+  }
+}

@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
+import { createUser } from '../store/actions/signup-action';
+import { saveUser } from '../store/actions/users-action';
+
 import './styles/AllDone.scss';
 
 class AllDone extends Component {
@@ -11,17 +15,12 @@ class AllDone extends Component {
       email2: this.props.user.email2 ||  '',
       email3: this.props.user.email3 || '',
     };
-
-    // this.initialState = this.props.user || this.defaultState;
-
-    // this.state = { ...this.initialState };
   }
   
   goPrevious = () =>{
     const data = {...this.state};
-    console.log('data with previous click',data);
     this.props.goPrevious();
-    this.props.onSubmit(data);
+    this.props.createUser(data);
   }
   /**
    * Handle form submission
@@ -31,22 +30,9 @@ class AllDone extends Component {
   onSubmit = event => {
     event.preventDefault();
     const data = {...this.state};
-    console.log('data',data);
     this.props.goNext();
-    this.props.onSubmit(data);
-  };
-  /**
-   * Random alpha numeric unique string generator
-   * Used as userID
-   * @memberof AllDone
-   */
-  id = () => {
-    return (
-      '_' +
-      Math.random()
-        .toString(36)
-        .substr(2, 9)
-    );
+    this.props.createUser(data);
+    this.props.saveUser(this.props.user);
   };
 
   /**
@@ -63,9 +49,7 @@ class AllDone extends Component {
 
   render() {
     return (
-      // <div className = "about-user-form-container">
       <form  className="registration-form" onSubmit={this.onSubmit} autoComplete="off">
-        
         <div className="form-header">
           <h1>All done!</h1>
         </div>
@@ -133,15 +117,16 @@ class AllDone extends Component {
           </div>
         </div>
       </form>
-    // {/* {this.state.isGoNext && <p style={{color:'green'}}>Successfully posted!!</p>} */}
-      // </div>
     );
   }
 }
+const mapStateToProps = state => ({
+  user: state.signupState,
+  users: state.usersState,
+});
+const mapDispatchToProps = {createUser,saveUser};
 
-// AllDone.propTypes = {
-//   onComplete: PropTypes.func.isRequired,
-//   buttonText: PropTypes.string.isRequired,
-// };
-
-export default AllDone;
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AllDone);
