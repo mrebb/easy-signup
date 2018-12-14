@@ -7,8 +7,7 @@ import AboutUser from './AboutUser';
 import DeliverySchedule from './DeliverySchedule';
 import AccountingSetup from './AccountingSetup';
 import AllDone from './AllDone';
-import FinalScreen from './FinalScreen';
-import './styles/SignUp.scss';
+import FinalScreen from '../components/FinalScreen';
 
 class Signup extends Component {
   constructor(props) {

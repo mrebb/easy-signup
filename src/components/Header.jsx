@@ -1,5 +1,4 @@
 import React from 'react';
-import '../components/styles/Header.scss';
 
 const HeaderBar = props=> {
 

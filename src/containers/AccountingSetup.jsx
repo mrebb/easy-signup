@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../store/actions/signup-action';
 import { saveUser } from '../store/actions/users-action';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import { paymentMethods, requestedTerms } from '../data/Constants';
-import EFT from './EFTForm';
-import CreditCardForm from './CreditCardForm';
+import EFT from '../components/EFTForm';
+import CreditCardForm from '../components/CreditCardForm';
+import ButtonsGroup from '../components/ButtonsGroup';
+import FormHeader from '../components/FormHeader';
 
 class AccountingSetup extends Component {
   constructor(props) {
@@ -74,13 +75,11 @@ class AccountingSetup extends Component {
   render() {
     return (
       <form
-        className="registration-form"
+        className="signup-form"
         onSubmit={this.onSubmit}
         autoComplete="off"
       >
-        <div className="form-header">
-          <h1>Accounting Setup</h1>
-        </div>
+        <FormHeader headerText="Accounting Setup"/>
         <div className="flex-wrap">
           <TextField
             required
@@ -149,27 +148,7 @@ class AccountingSetup extends Component {
             />
           )}
           <br />
-          <div className="BtnGroup">
-            <Button
-              label="PREVIOUS"
-              onClick={this.goPrevious}
-              id="previous"
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-              PREVIOUS
-            </Button>
-            <Button
-              label="NEXT"
-              id="next-with-previous"
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
-              NEXT
-            </Button>
-          </div>
+          <ButtonsGroup goPrevious={this.goPrevious}/>
         </div>
       </form>
     );

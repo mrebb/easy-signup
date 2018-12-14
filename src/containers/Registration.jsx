@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { createUser } from '../store/actions/signup-action';
 import { saveUser } from '../store/actions/users-action';
-import './styles/Registration.scss';
+import FormHeader from '../components/FormHeader';
 
 class Registration extends Component {
   constructor(props) {
@@ -86,16 +86,12 @@ class Registration extends Component {
   render() {
     return (
       <Fragment>
-       
-        {/* <div className="input-form"> */}
         <form
-          className="registration-form"
+          className="signup-form"
           onSubmit={this.onSubmit}
           autoComplete="off"
         >
-          <div className="form-header">
-            <h1>Registration</h1>
-          </div>
+          <FormHeader headerText="Registration"/>
           <div className="flex-wrap">
             <TextField
               required

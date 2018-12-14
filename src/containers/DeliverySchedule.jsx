@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../store/actions/signup-action';
 import { saveUser } from '../store/actions/users-action';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import './styles/DeliverySchedule.scss';
 import { deliveriesFrom,deliveriesTo } from '../data/Constants';
+import ButtonsGroup from '../components/ButtonsGroup';
+import FormHeader from '../components/FormHeader';
 
 class DeliverySchedule extends Component {
   constructor(props) {
@@ -50,13 +50,9 @@ class DeliverySchedule extends Component {
   render() {
     return (
       // <div className = "about-user-form-container">
-      <form  className="registration-form" onSubmit={this.onSubmit} autoComplete="off">
-        
-        <div className="form-header">
-          <h1>Delivery Schedule</h1>
-        </div>
+      <form  className="signup-form" onSubmit={this.onSubmit} autoComplete="off">
+        <FormHeader headerText="Delivery Schedule"/>
         <div className="flex-wrap">
-          
           <TextField
             required
             select
@@ -109,31 +105,9 @@ class DeliverySchedule extends Component {
             onChange={this.onChange}
           />
           <br/>
-          <div className="BtnGroup">
-            <Button
-              label="PREVIOUS"
-              onClick={this.goPrevious}
-              id="previous"
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-            PREVIOUS
-            </Button>
-            <Button
-              label="NEXT"
-              id="next-with-previous"
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
-            NEXT
-            </Button>
-          </div>
+          <ButtonsGroup goPrevious={this.goPrevious}/>
         </div>
       </form>
-    // {/* {this.state.isGoNext && <p style={{color:'green'}}>Successfully posted!!</p>} */}
-      // </div>
     );
   }
 }

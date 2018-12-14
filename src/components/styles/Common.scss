@@ -1,12 +1,5 @@
 $screen-desktop-min: 600px;
-
-.form-header{
-text-align: center;
-padding-top: 1%;
-color:var(--blue);
-}
-
-.registration-form {
+.signup-form {
   background-color: var(--white);
   border-radius: 2rem;
   margin-top: 10%;
@@ -31,7 +24,7 @@ color:var(--blue);
     margin-bottom: 3%;
     width:100%;
   }
-  .registration-form {
+  .signup-form {
     background-color: var(--white);
     margin-left: 15%;
     margin-right: 15%;
@@ -42,4 +35,35 @@ color:var(--blue);
   .text-field{
     margin: 0%;
   }
+  .BtnGroup {
+    margin-top: 5%;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 10%;
+    
+}
+
+.BtnGroup :first-child {
+  float: none;
+  margin-left: 5%;
+  
+}
+
+.BtnGroup :nth-child(2) {
+  margin-right: 5%;
+  float: right;
+  
+}
+
+
+#next-with-previous,#previous  {
+
+padding: 10px 25px;
+border: none;
+color: #fff;
+cursor: pointer;
+border-radius: 4rem;
+outline: none;
+width: 30%;
+}
 }

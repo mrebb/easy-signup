@@ -1,10 +1,10 @@
-// Middleware Validator before performing state changes
+// Sample Middleware Validator before performing state changes
 // More validations can be implemented in future
 
 const validator = store=>next=>action=> {
-  if(action.type==='LOGIN'){
-    if(action.payload.name===''){
-      alert('Error: user name should not be left blank');
+  if(action.type==='CREATE'){
+    if(!action.payload){
+      alert('payload missing');
     }
     else{
       let result = next(action);
