@@ -1,0 +1,40 @@
+{
+  "env": {
+    "browser": true,
+    "node": true,
+    "commonjs": true,
+    "jest": true,
+    "es6": true
+  },
+  "globals": {
+    "err": true,
+    "req": true,
+    "res": true,
+    "next": true
+  },
+  "extends": ["plugin:react/recommended"],
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 6,
+    "ecmaFeatures": {
+      "jsx": true,
+      "globalReturn": true,
+      "generators": false,
+      "objectLiteralDuplicateProperties": false,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "rules": {
+    "no-console": "off",
+    "indent": [ "error", 2 ],
+    "quotes": ["error", "single", { "allowTemplateLiterals": true }],
+    "comma-dangle": ["error", "always-multiline"],
+    "semi": [ "error", "always" ],
+    "react/jsx-filename-extension": 0,
+    "react/prop-types": 0,
+    "react/no-find-dom-node": 0,
+    "jsx-a11y/label-has-for": 0,
+    "jsx-a11y/href-no-hash": 0
+  },
+  "parser": "babel-eslint"
+}

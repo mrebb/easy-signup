@@ -1,0 +1,28 @@
+$screen-desktop-min: 600px;
+.header-main{
+    background: var(--bluemix);
+    margin: 0;
+    width: 100%;
+    }
+  
+.header-logoSize{
+    height: 75px;
+    margin-top: 5%;
+    }
+  
+.header-text-center{
+    display: inline-flex;
+    color: var(--white);
+    opacity: 0.8;
+    text-align: center;
+    margin-left: 25%;
+    // font-family: var(--special);
+    }
+
+@media only screen and (min-width:#{$screen-desktop-min}){   
+    .header-text-center{
+        display: inline-flex;
+        font-size: 40px;
+        margin-left: 40%;
+        }
+    }
