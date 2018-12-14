@@ -1,6 +1,7 @@
 {
   "email":"",
   "password":"",
+  "confirmPassword":"",
   "name":"",
   "role": "",
   "restaurantName": "",
@@ -9,5 +10,19 @@
   "companyAddress":"",
   "deliveriesFrom":"",
   "deliveriesTo":"",
-  "specialInstructions":""
+  "specialInstructions":"",
+  "paymentMethod":"",
+  "requestedTerms":"",
+  "accountingEmail":"",
+  "financialInstitutionName":"",
+  "bankBranchAddress":"",
+  "accountNumber":"",
+  "transitNumber":"",
+  "creditCardNumber": "",
+  "nameOnCreditCard": "",
+  "creditCardExpiry": "",
+  "cvc": "",
+  "email1":"",
+  "email2":"",
+  "email3":""
 }

@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import MenuItem from '@material-ui/core/MenuItem';
-import './styles/DeliverySchedule.scss';
-const deliveriesFrom = ['9:00AM','10:00AM','11:00AM','12:00PM'];
-const deliveriesTo= ['1:00PM','2:00PM','3:00PM','4:00PM'];
+import './styles/AllDone.scss';
 
-class DeliverySchedule extends Component {
+class AllDone extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      deliveriesFrom: this.props.user.deliveriesFrom || '11:00AM',
-      deliveriesTo: this.props.user.deliveriesTo ||'3:00PM',
-      specialInstructions: this.props.user.specialInstructions ||'',
+      email1: this.props.user.email1 || '',
+      email2: this.props.user.email2 ||  '',
+      email3: this.props.user.email3 || '',
     };
+
+    // this.initialState = this.props.user || this.defaultState;
+
+    // this.state = { ...this.initialState };
   }
   
   goPrevious = () =>{
@@ -25,7 +26,7 @@ class DeliverySchedule extends Component {
   /**
    * Handle form submission
    * Calls reducer method 
-   * @memberof DeliverySchedule
+   * @memberof AllDone
    */
   onSubmit = event => {
     event.preventDefault();
@@ -37,7 +38,7 @@ class DeliverySchedule extends Component {
   /**
    * Random alpha numeric unique string generator
    * Used as userID
-   * @memberof DeliverySchedule
+   * @memberof AllDone
    */
   id = () => {
     return (
@@ -51,7 +52,7 @@ class DeliverySchedule extends Component {
   /**
    * Updates state as it recieves input data from text input
    * 
-   * @memberof DeliverySchedule
+   * @memberof AllDone
    */
   onChange = event => {
     const changedBit = {
@@ -66,62 +67,49 @@ class DeliverySchedule extends Component {
       <form  className="registration-form" onSubmit={this.onSubmit} autoComplete="off">
         
         <div className="form-header">
-          <h1>Delivery Schedule</h1>
+          <h1>All done!</h1>
+        </div>
+        <div className="all-done-message">
+          <h2>Thanks for signing up!<br/> Invite other members of your team to join:</h2>
         </div>
         <div className="flex-wrap">
           
           <TextField
-            required
-            select
-            label="DELIVERIES FROM"
-            name="deliveriesFrom"
+            type="email"
+            label="EMAIL #1 (Optional)"
             className="text-field"
-            id="deliveriesFrom"
-            style={{margin:'2%',flexBasis:310}}
-            value={this.state.deliveriesFrom}
-            onChange={this.onChange}
-          >
-            {deliveriesFrom.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-          <br/>
-          
-          <TextField
-            required
-            select
-            label="DELIVERIES TO"
-            name="deliveriesTo"
-            className="text-field"
-            id="deliveriesTo"
-            style={{margin:'2%',flexBasis:310}}
-            value={this.state.deliveriesTo}
-            onChange={this.onChange}
-          >
-            {deliveriesTo.map(option => (
-              <MenuItem key={option} value={option}>
-                {option}
-              </MenuItem>
-            ))}
-          </TextField>
-          <br/>
-          <TextField
-            required
-            label="SPECIAL INSTRUCTIONS"
-            type="text"
-            maxLength="250"
-            className="text-field"
-            id="specialInstructions"
-            placeholder="Leave at Front Door.."
-            value={this.state.specialInstructions}
-           
-            name="specialInstructions"
+            maxLength="50"
+            id="email"
+            value={this.state.email1 || ''}
             style={{margin:'2%',flexBasis:650}}
+            name="email1"
+            onChange={this.onChange}
+          />
+          <br />
+          <TextField
+            type="email"
+            label="EMAIL #2 (Optional)"
+            className="text-field"
+            maxLength="50"
+            id="email2"
+            value={this.state.email2 || ''}
+            style={{margin:'2%',flexBasis:650}}
+            name="email2"
             onChange={this.onChange}
           />
           <br/>
+          <TextField
+            type="email"
+            label="EMAIL #3 (Optional)"
+            className="text-field"
+            maxLength="50"
+            id="email3"
+            value={this.state.email3 || ''}
+            style={{margin:'2%',flexBasis:650}}
+            name="email3"
+            onChange={this.onChange}
+          />
+          <br />
           <div className="BtnGroup">
             <Button
               label="PREVIOUS"
@@ -151,9 +139,9 @@ class DeliverySchedule extends Component {
   }
 }
 
-// DeliverySchedule.propTypes = {
+// AllDone.propTypes = {
 //   onComplete: PropTypes.func.isRequired,
 //   buttonText: PropTypes.string.isRequired,
 // };
 
-export default DeliverySchedule;
+export default AllDone;

@@ -9,22 +9,25 @@ const restaurantTypes= ['One Location','Regional(3-5 Locations)','National Chain
 class AboutUser extends Component {
   constructor(props) {
     super(props);
-    this.defaultState = {
-      name: '',
-      role: 'Head Chef',
-      restaurantName: '',
-      restaurantType: 'Regional(3-5 Locations)',
-      phoneNumber:'',
-      companyAddress:'',
+    this.state = {
+      name: this.props.user.name || '',
+      role: this.props.user.role || 'Head Chef',
+      restaurantName: this.props.user.restaurantName ||  '',
+      restaurantType: this.props.user.restaurantType ||  'Regional(3-5 Locations)',
+      phoneNumber: this.props.user.phoneNumber || '',
+      companyAddress: this.props.user.companyAddress || '',
     };
 
-    const initialState = this.defaultState;
+    // this.initialState = this.props.user || this.defaultState;
 
-    this.state = { ...initialState };
+    // this.state = { ...this.initialState };
   }
   
   goPrevious = () =>{
+    const data = {...this.state};
+    console.log('data with previous click',data);
     this.props.goPrevious();
+    this.props.onSubmit(data);
   }
   /**
    * Handle form submission
@@ -34,7 +37,7 @@ class AboutUser extends Component {
   onSubmit = event => {
     event.preventDefault();
     const data = {...this.state};
-    console.log('data',data);
+    console.log('data with next click',data);
     this.props.goNext();
     this.props.onSubmit(data);
   };
@@ -79,9 +82,10 @@ class AboutUser extends Component {
             type="text"
             className="text-field"
             id="name"
+            maxLength="50"
             placeholder="YOUR NAME"
-            value={this.state.name}
-            style={{margin:'2%',flexBasis:300}}
+            value={this.state.name||''}
+            style={{margin:'2%',flexBasis:310}}
             name="name"
             onChange={this.onChange}
           />
@@ -93,8 +97,8 @@ class AboutUser extends Component {
             name="role"
             className="text-field"
             id="role"
-            style={{margin:'2%',flexBasis:300}}
-            value={this.state.role}
+            style={{margin:'2%',flexBasis:310}}
+            value={this.state.role || 'Head Chef'}
             onChange={this.onChange}
           >
             {roles.map(option => (
@@ -108,13 +112,14 @@ class AboutUser extends Component {
             required
             label="RESTAURANT NAME"
             type="text"
+            maxLength="50"
             className="text-field"
             id="restaurantName"
             placeholder="RESTAURANT NAME"
-            value={this.state.restaurantName}
+            value={this.state.restaurantName || ''}
         
             name="restaurantName"
-            style={{margin:'2%',flexBasis:300}}
+            style={{margin:'2%',flexBasis:310}}
             onChange={this.onChange}
           />
           <br />
@@ -125,8 +130,8 @@ class AboutUser extends Component {
             name="restaurantType"
             className="text-field"
             id="restaurantType"
-            style={{margin:'2%',flexBasis:300}}
-            value={this.state.restaurantType}
+            style={{margin:'2%',flexBasis:310}}
+            value={this.state.restaurantType || 'Regional(3-5 Locations)'}
             onChange={this.onChange}
           >
             {restaurantTypes.map(option => (
@@ -142,11 +147,12 @@ class AboutUser extends Component {
             type="number"
             className="text-field"
             id="phoneNumber"
-            placeholder="()-XXX-XXXX"
-            value={this.state.phoneNumber}
+            // maxLength="15"
+            placeholder="(XXX)-XXX-XXXX"
+            value={this.state.phoneNumber  || ''}
           
             name="phoneNumber"
-            style={{margin:'2%',flexBasis:900}}
+            style={{margin:'2%',flexBasis:650}}
             onChange={this.onChange}
           />
           <br />
@@ -157,10 +163,10 @@ class AboutUser extends Component {
             className="text-field"
             id="companyAddress"
             placeholder="COMPANY ADDRESS"
-            value={this.state.companyAddress}
+            value={this.state.companyAddress  || ''}
            
             name="companyAddress"
-            style={{margin:'2%',flexBasis:900}}
+            style={{margin:'2%',flexBasis:650}}
             onChange={this.onChange}
           />
           <br/>
