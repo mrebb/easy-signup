@@ -112,7 +112,7 @@ class AllDone extends Component {
               variant="contained"
               color="primary"
             >
-            NEXT
+            SUBMIT
             </Button>
           </div>
         </div>
