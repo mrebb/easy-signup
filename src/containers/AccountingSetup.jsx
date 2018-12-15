@@ -10,6 +10,7 @@ import CreditCardForm from '../components/CreditCardForm';
 import ButtonsGroup from '../components/ButtonsGroup';
 import FormHeader from '../components/FormHeader';
 import { checkForValidInput, checkForDataLength } from './Utils/Utils';
+import {AccountSetupInitialState} from './Utils/Utils';
 
 class AccountingSetup extends Component {
   constructor(props) {
@@ -100,8 +101,8 @@ class AccountingSetup extends Component {
   selectPaymentMethod = event => {
     this.onChange(event);
     event.target.value === 'EFT (DIRECT DEBIT)'
-      ? this.setState({ showEFT: true })
-      : this.setState({ showEFT: false });
+      ? this.setState({ showEFT: true,...AccountSetupInitialState})
+      : this.setState({ showEFT: false,...AccountSetupInitialState});  
   };
 
   /**
@@ -167,7 +168,7 @@ class AccountingSetup extends Component {
             name="paymentMethod"
             className="text-field"
             id="paymentMethod"
-            style={{ margin: '2%', flexBasis: 310 }}
+            style={{ margin: '2%', flexBasis: 335 }}
             value={this.state.paymentMethod || 'EFT (DIRECT DEBIT)'}
             onChange={this.selectPaymentMethod}
           >
@@ -177,7 +178,6 @@ class AccountingSetup extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br />
           <TextField
             required
             select
@@ -185,7 +185,7 @@ class AccountingSetup extends Component {
             name="requestedTerms"
             className="text-field"
             id="requestedTerms"
-            style={{ margin: '2%', flexBasis: 310 }}
+            style={{ margin: '2%', flexBasis: 335 }}
             value={this.state.requestedTerms || 'NET 14'}
             onChange={this.onChange}
           >
@@ -195,7 +195,6 @@ class AccountingSetup extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br />
           <TextField
             required
             label="ACCOUNTING EMAIL"
@@ -205,10 +204,9 @@ class AccountingSetup extends Component {
             inputProps={{ maxLength: 50 }}
             value={this.state.accountingEmail || ''}
             name="accountingEmail"
-            style={{ margin: '2%', flexBasis: 650 }}
+            style={{ margin: '2%', flexBasis: 700 }}
             onChange={this.onChange}
           />
-          <br />
           {this.state.showEFT ? (
             <EFT
               financialInstitutionName={this.state.financialInstitutionName}
@@ -233,7 +231,6 @@ class AccountingSetup extends Component {
               handleChange={this.handleChange}
             />
           )}
-          <br />
           <ButtonsGroup goPrevious={this.goPrevious} />
         </div>
       </form>

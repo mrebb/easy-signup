@@ -21,3 +21,23 @@ export const checkForDataLength = (data,dataLength,name)=>{
     return false;
   }
 };
+
+export const AccountSetupInitialState = {
+  
+  requestedTerms: 'NET 14',
+  accountingEmail:  '',
+  financialInstitutionName:
+    'BANK OF NOVA SCOTIA',
+  bankBranchAddress: '',
+  accountNumber: '',
+  transitNumber: '',
+  creditCardNumber: '',
+  nameOnCreditCard: '',
+  creditCardExpiry:  '',
+  cvc:  '',
+  isaccountNumberInvalid: false,
+  istransitNumberInvalid: false,
+  iscreditCardNumberInvalid: false,
+  iscvcInvalid: false,
+  iscreditCardExpiryInvalid: false,
+};

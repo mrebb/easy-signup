@@ -38,7 +38,7 @@ const PhoneNumberField = props => {
         name="phoneNumber"
         error= {isNumberInvalid===true}
         helperText={isNumberInvalid?'Invalid Phone Number':''}   
-        style={{margin:'2%',flexBasis:650}}
+        style={{margin:'2%',flexBasis:700}}
         InputProps={{
           inputComponent: TextMaskCustom,
           value:phoneNumber,

@@ -42,10 +42,10 @@ const CreditCardForm = (props)=>{
         helperText={props.iscreditCardNumberInvalid?'Enter 16 digit card number':''}
         value={props.creditCardNumber || ''}
         name="creditCardNumber"
-        style={{ margin: '2%', flexBasis: 650 }}
+        style={{ margin: '2%', flexBasis: 700 }}
         onChange={props.onChange}
       />
-      <br />
+      
       <TextField
         required
         label="NAME ON CREDIT CARD"
@@ -55,10 +55,10 @@ const CreditCardForm = (props)=>{
         inputProps={{maxLength:50}}
         value={props.nameOnCreditCard || ''}
         name="nameOnCreditCard"
-        style={{ margin: '2%', flexBasis: 650 }}
+        style={{ margin: '2%', flexBasis: 700 }}
         onChange={props.onChange}
       />
-      <br />
+      
       <TextField
         required
         label="EXPIRY (MM/YYYY)"
@@ -68,14 +68,14 @@ const CreditCardForm = (props)=>{
         error={props.iscreditCardExpiryInvalid===true}
         helperText={props.iscreditCardExpiryInvalid?'Enter valid expiry date in (MM/YYYY) format':''}
         name="creditCardExpiry"
-        style={{ margin: '2%', flexBasis: 310 }}
+        style={{ margin: '2%', flexBasis: 335 }}
         InputProps={{
           inputComponent: TextMaskCustom,
           value:props.creditCardExpiry,
           onChange: props.handleChange('creditCardExpiry'),
         }}
       />
-      <br />
+      
       <TextField
         required
         label="CVC"
@@ -87,7 +87,7 @@ const CreditCardForm = (props)=>{
         inputProps={{maxLength:3}}
         value={props.cvc || ''}
         name="cvc"
-        style={{ margin: '2%', flexBasis: 310 }}
+        style={{ margin: '2%', flexBasis: 335 }}
         onChange={props.onChange}
       />
     </Fragment>

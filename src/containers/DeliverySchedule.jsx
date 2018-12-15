@@ -66,7 +66,7 @@ class DeliverySchedule extends Component {
             name="deliveriesFrom"
             className="text-field"
             id="deliveriesFrom"
-            style={{margin:'2%',flexBasis:310}}
+            style={{margin:'2%',flexBasis:335}}
             value={this.state.deliveriesFrom}
             onChange={this.onChange}
           >
@@ -76,8 +76,7 @@ class DeliverySchedule extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br/>
-          
+         
           <TextField
             required
             select
@@ -85,7 +84,7 @@ class DeliverySchedule extends Component {
             name="deliveriesTo"
             className="text-field"
             id="deliveriesTo"
-            style={{margin:'2%',flexBasis:310}}
+            style={{margin:'2%',flexBasis:335}}
             value={this.state.deliveriesTo}
             onChange={this.onChange}
           >
@@ -95,7 +94,7 @@ class DeliverySchedule extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br/>
+          
           <TextField
             required
             label="SPECIAL INSTRUCTIONS"
@@ -107,10 +106,10 @@ class DeliverySchedule extends Component {
             value={this.state.specialInstructions}
            
             name="specialInstructions"
-            style={{margin:'2%',flexBasis:650}}
+            style={{margin:'2%',flexBasis:700}}
             onChange={this.onChange}
           />
-          <br/>
+          
           <ButtonsGroup goPrevious={this.goPrevious}/>
         </div>
       </form>

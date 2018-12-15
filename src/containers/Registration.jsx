@@ -104,12 +104,11 @@ class Registration extends Component {
               id="email"
               placeholder="johndoe@example.com"
               value={this.state.email || ''}
-              // fullWidth={true}
-              style={{margin:'2%',flexBasis:650}}
+              style={{margin:'2%',flexBasis:700}}
               name="email"
               onChange={this.onChange}
             />
-            <br />
+            
             <TextField
               required
               type="password"
@@ -119,12 +118,12 @@ class Registration extends Component {
               className="text-field"
               id="password"
               value={this.state.password || ''}
-              style={{margin:'2%',flexBasis:650}}
+              style={{margin:'2%',flexBasis:700}}
               margin="normal"
               name="password"
               onChange={this.onChange}
             />
-            <br />
+            
             <TextField
               required
               type="password"
@@ -138,10 +137,10 @@ class Registration extends Component {
               margin="normal"
               id="confirmPassword"
               name="confirmPassword"
-              style={{margin:'2%',flexBasis:650}}
+              style={{margin:'2%',flexBasis:700}}
               onChange={this.onChange}
             />
-            <br/>
+            
             <Button
               label="Submit"
               id="next"

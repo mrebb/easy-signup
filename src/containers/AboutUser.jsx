@@ -95,11 +95,10 @@ class AboutUser extends Component {
             inputProps={{maxLength:50}}
             placeholder="YOUR NAME"
             value={this.state.name || ''}
-            style={{ margin: '2%', flexBasis: 310 }}
+            style={{ margin: '2%', flexBasis: 335 }}
             name="name"
             onChange={this.onChange}
           />
-          <br />
           <TextField
             required
             select
@@ -107,7 +106,7 @@ class AboutUser extends Component {
             name="role"
             className="text-field"
             id="role"
-            style={{ margin: '2%', flexBasis: 310 }}
+            style={{ margin: '2%', flexBasis: 335 }}
             value={this.state.role || 'Head Chef'}
             onChange={this.onChange}
           >
@@ -117,7 +116,6 @@ class AboutUser extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br />
           <TextField
             required
             label="RESTAURANT NAME"
@@ -128,10 +126,9 @@ class AboutUser extends Component {
             placeholder="RESTAURANT NAME"
             value={this.state.restaurantName || ''}
             name="restaurantName"
-            style={{ margin: '2%', flexBasis: 310 }}
+            style={{ margin: '2%', flexBasis: 335 }}
             onChange={this.onChange}
           />
-          <br />
           <TextField
             required
             select
@@ -139,7 +136,7 @@ class AboutUser extends Component {
             name="restaurantType"
             className="text-field"
             id="restaurantType"
-            style={{ margin: '2%', flexBasis: 310 }}
+            style={{ margin: '2%', flexBasis: 335 }}
             value={this.state.restaurantType || 'Regional(3-5 Locations)'}
             onChange={this.onChange}
           >
@@ -149,13 +146,11 @@ class AboutUser extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br />
           <PhoneNumberField
             phoneNumber={this.state.phoneNumber}
             onChange={this.handleChange}
             isNumberInvalid={this.state.isNumberInvalid}
           />
-          <br />
           <TextField
             required
             label="COMPANY ADDRESS"
@@ -166,10 +161,9 @@ class AboutUser extends Component {
             placeholder="COMPANY ADDRESS"
             value={this.state.companyAddress || ''}
             name="companyAddress"
-            style={{ margin: '2%', flexBasis: 650 }}
+            style={{ margin: '2%', flexBasis: 700 }}
             onChange={this.onChange}
           />
-          <br />
           <ButtonsGroup goPrevious={this.goPrevious} />
         </div>
       </form>

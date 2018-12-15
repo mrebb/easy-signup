@@ -23,7 +23,7 @@ const EFT = (props)=>{
         className="text-field"
         id="financialInstitutionName"
         inputProps={{maxLength:50}}
-        style={{ margin: '2%', flexBasis: 650 }}
+        style={{ margin: '2%', flexBasis: 700 }}
         value={props.financialInstitutionName || 'BANK OF NOVA SCOTIA'}
         onChange={(event)=>props.onChange(event)}
       >
@@ -33,7 +33,7 @@ const EFT = (props)=>{
           </MenuItem>
         ))}
       </TextField>
-      <br />
+      
       <TextField
         required
         label="BANK BRANCH ADDRESS"
@@ -44,10 +44,10 @@ const EFT = (props)=>{
         value={props.bankBranchAddress || ''}
         inputProps={{maxLength:150}}
         name="bankBranchAddress"
-        style={{ margin: '2%', flexBasis: 650 }}
+        style={{ margin: '2%', flexBasis: 700 }}
         onChange={(event)=>props.onChange(event)}
       />
-      <br />
+      
       <TextField
         required
         label="ACCOUNT NUMBER"
@@ -60,9 +60,9 @@ const EFT = (props)=>{
         value={props.accountNumber}
         onChange={(event)=>props.onChange(event)}
         name="accountNumber"
-        style={{ margin: '2%', flexBasis: 310 }}
+        style={{ margin: '2%', flexBasis: 335 }}
       />
-      <br />
+      
       <TextField
         required
         label="TRANSIT NUMBER"
@@ -75,7 +75,7 @@ const EFT = (props)=>{
         value={props.transitNumber}
         onChange={(event)=>props.onChange(event)}
         name="transitNumber"
-        style={{ margin: '2%', flexBasis: 310 }}
+        style={{ margin: '2%', flexBasis: 335 }}
       />
     </Fragment>
   );
