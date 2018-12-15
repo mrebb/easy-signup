@@ -35,22 +35,25 @@ Build an application that provides interface for new user to signup and guides t
 - [x] Password: 
     - Check for password matching with confirm password field
     - Encode the password before saving to local storage
+    - maximum length of 50
 - [x] Phone number: 
     - Check for 10 digit format
     - Check for errors
     - On the fly feedback on error correction
+    - maximum length of 10
 - [x] Accounting Setup: 
     - Check for credit card number length & number type
-    - Check for credit card cvc code length & number type
+    - Check for credit card cvc code length (16 digits) & number type
     - Check for expiry date length and type
+    - Check cvc code length(3 digits) & type
     - error message feedback just below the fields
     - change in payment method clears the form and shows the new payment method form 
     - input type validations
-    - All fields validated for length
-    - Routing & account number fields max length vaidation
+    - All remaining fields validated for length
+    - Routing & account number fields max length (20 digits) vaidation
 - [x] Optional Email guest list: 
     - Check for email type
-- [x] Final screem: 
+- [x] Final screen: 
     - Message with Contact Sales button
 - [x] Responsive layout 
 ***
