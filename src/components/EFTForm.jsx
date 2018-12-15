@@ -3,8 +3,31 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { financialInstitutionNames } from '../data/Constants';
-import {TextMaskCustom} from './Utils';
+// import {TextMaskCustom} from './Utils';
+import MaskedInput from 'react-text-mask';
 
+
+const TextMaskCustom = (props) => {
+  const { inputRef, ...other } = props;
+  return (
+    <MaskedInput
+      {...other}
+      ref={inputRef}
+      mask={generateRegEx(50)}
+      placeholderChar={'\u2000'}
+    />
+  );
+};
+
+function generateRegEx(maxLength){
+  let arr = [];
+  let i=0;
+  while(i<maxLength){
+    arr.push(/\d/);
+    i++;
+  }
+  return arr;
+}
 /**
   * @param {props} 
   * EFT Bank Account form for 'EFT' payment method 

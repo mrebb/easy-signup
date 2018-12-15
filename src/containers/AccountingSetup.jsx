@@ -58,6 +58,7 @@ class AccountingSetup extends Component {
     const changedBit = {
       [name]: event.target.value,
     };
+    console.log('changed',changedBit)
     this.setState(changedBit);
   };
 
@@ -76,7 +77,24 @@ class AccountingSetup extends Component {
     const changedBit = {
       [event.target.name]: event.target.value,
     };
-    this.setState(changedBit);
+    if(event.target.name==='creditCardNumber'){
+      let data = changedBit.creditCardNumber;
+      if(isNaN(data)){
+        this.setState({isInputInvalid:true});
+      }
+      else if(data.toString().length!==16){
+        this.setState({isInputInvalid:true});
+        this.setState(changedBit);
+      }
+      else{
+        this.setState({isInputInvalid:false});
+        this.setState(changedBit);
+      }
+    }
+    else{
+      this.setState(changedBit);
+    }
+    
   };
 
   render() {
@@ -153,6 +171,7 @@ class AccountingSetup extends Component {
               nameOnCreditCard={this.state.nameOnCreditCard}
               creditCardExpiry={this.state.creditCardExpiry}
               cvc={this.state.cvc}
+              isInputInvalid={this.state.isInputInvalid}
             />
           )}
           <br />

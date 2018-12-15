@@ -16,10 +16,12 @@ const CreditCardForm = (props)=>{
       <TextField
         required
         label="CREDIT CARD NUMBER"
-        type="number"
+        type="text"
         className="text-field"
         id="creditCardNumber"
         inputProps={{maxLength:16}}
+        error={props.isInputInvalid===true}
+        helperText={props.isInputInvalid?'Enter 16 digit card number':''}
         value={props.creditCardNumber || ''}
         name="creditCardNumber"
         style={{ margin: '2%', flexBasis: 650 }}
