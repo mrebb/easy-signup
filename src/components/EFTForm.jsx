@@ -3,7 +3,12 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { financialInstitutionNames } from '../data/Constants';
+import {TextMaskCustom} from './Utils';
 
+/**
+  * @param {props} 
+  * EFT Bank Account form for 'EFT' payment method 
+  */
 const EFT = (props)=>{
   return(
     <Fragment>
@@ -18,7 +23,7 @@ const EFT = (props)=>{
         name="financialInstitutionName"
         className="text-field"
         id="financialInstitutionName"
-        maxLength="50"
+        inputProps={{maxLength:50}}
         style={{ margin: '2%', flexBasis: 650 }}
         value={props.financialInstitutionName || 'BANK OF NOVA SCOTIA'}
         onChange={(event)=>props.onChange(event)}
@@ -38,7 +43,7 @@ const EFT = (props)=>{
         id="bankBranchAddress"
         placeholder="123 main street.."
         value={props.bankBranchAddress || ''}
-        maxLength="250"
+        inputProps={{maxLength:150}}
         name="bankBranchAddress"
         style={{ margin: '2%', flexBasis: 650 }}
         onChange={(event)=>props.onChange(event)}
@@ -47,26 +52,29 @@ const EFT = (props)=>{
       <TextField
         required
         label="ACCOUNT NUMBER"
-        type="number"
         className="text-field"
         id="accountNumber"
-        value={props.accountNumber || ''}
+        InputProps={{
+          inputComponent: TextMaskCustom,
+          value:props.accountNumber,
+          onChange: props.handleChange('accountNumber'),
+        }}
         name="accountNumber"
         style={{ margin: '2%', flexBasis: 310 }}
-        onChange={(event)=>props.onChange(event)}
       />
       <br />
       <TextField
         required
         label="TRANSIT NUMBER"
-        type="number"
         className="text-field"
         id="transitNumber"
-        // maxLength="50"
-        value={props.transitNumber || ''}
         name="transitNumber"
         style={{ margin: '2%', flexBasis: 310 }}
-        onChange={(event)=>props.onChange(event)}
+        InputProps={{
+          inputComponent: TextMaskCustom,
+          value:props.transitNumber,
+          onChange: props.handleChange('transitNumber'),
+        }}
       />
     </Fragment>
   );

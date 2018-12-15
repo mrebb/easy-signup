@@ -54,6 +54,13 @@ class AccountingSetup extends Component {
     this.props.createUser(data);
   };
 
+  handleChange = name => event => {
+    const changedBit = {
+      [name]: event.target.value,
+    };
+    this.setState(changedBit);
+  };
+
   selectPaymentMethod = event => {
     this.onChange(event);
     event.target.value === 'EFT (DIRECT DEBIT)'
@@ -123,7 +130,7 @@ class AccountingSetup extends Component {
             type="email"
             className="text-field"
             id="accountingEmail"
-            maxLength="50"
+            inputProps={{maxLength:50}}
             value={this.state.accountingEmail || ''}
             name="accountingEmail"
             style={{ margin: '2%', flexBasis: 650 }}
@@ -137,6 +144,7 @@ class AccountingSetup extends Component {
               transitNumber={this.state.transitNumber}
               bankBranchAddress={this.state.bankBranchAddress}
               onChange={this.onChange}
+              handleChange={this.handleChange}
             />
           ) : (
             <CreditCardForm

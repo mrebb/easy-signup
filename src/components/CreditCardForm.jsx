@@ -2,7 +2,10 @@ import React, { Fragment} from 'react';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 
-
+/**
+  * @param {props} 
+  * Credit Card form for 'credit card' payment method 
+  */
 const CreditCardForm = (props)=>{
   return(
     <Fragment>
@@ -16,6 +19,7 @@ const CreditCardForm = (props)=>{
         type="number"
         className="text-field"
         id="creditCardNumber"
+        inputProps={{maxLength:16}}
         value={props.creditCardNumber || ''}
         name="creditCardNumber"
         style={{ margin: '2%', flexBasis: 650 }}
@@ -28,7 +32,7 @@ const CreditCardForm = (props)=>{
         type="text"
         className="text-field"
         id="nameOnCreditCard"
-        maxLength="50"
+        inputProps={{maxLength:50}}
         value={props.nameOnCreditCard || ''}
         name="nameOnCreditCard"
         style={{ margin: '2%', flexBasis: 650 }}
@@ -41,7 +45,7 @@ const CreditCardForm = (props)=>{
         type="text"
         className="text-field"
         id="creditCardExpiry"
-        maxLength="7"
+        inputProps={{maxLength:7}}
         value={props.creditCardExpiry || ''}
         name="creditCardExpiry"
         style={{ margin: '2%', flexBasis: 310 }}
@@ -51,9 +55,10 @@ const CreditCardForm = (props)=>{
       <TextField
         required
         label="CVC"
-        type="number"
+        type="text"
         className="text-field"
         id="cvc"
+        inputProps={{maxLength:3}}
         value={props.cvc || ''}
         name="cvc"
         style={{ margin: '2%', flexBasis: 310 }}

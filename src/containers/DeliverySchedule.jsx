@@ -94,7 +94,7 @@ class DeliverySchedule extends Component {
             required
             label="SPECIAL INSTRUCTIONS"
             type="text"
-            maxLength="250"
+            inputProps={{maxLength:250}}
             className="text-field"
             id="specialInstructions"
             placeholder="Leave at Front Door.."

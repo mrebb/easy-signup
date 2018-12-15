@@ -98,7 +98,7 @@ class Registration extends Component {
               type="email"
               label="EMAIL"
               className="text-field"
-              maxLength="50"
+              inputProps={{maxLength:50}}
               error= {this.state.isUserDuplicate===true}
               helperText={this.state.isUserDuplicate?'Email address already registered':''}
               id="email"
@@ -114,7 +114,7 @@ class Registration extends Component {
               required
               type="password"
               label="PASSWORD"
-              maxLength="50"
+              inputProps={{maxLength:50}}
               placeholder=""
               className="text-field"
               id="password"
@@ -130,6 +130,7 @@ class Registration extends Component {
               type="password"
               label="CONFIRM PASSWORD"
               placeholder=""
+              inputProps={{maxLength:50}}
               error= {this.state.error}
               helperText={this.state.password!==this.state.confirmPassword?'passwords do not match':''}
               className="text-field"

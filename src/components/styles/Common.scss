@@ -12,9 +12,15 @@ $screen-desktop-min: 600px;
   float:right;
   margin-bottom: 5%;
   margin-top: 7%;
+  border-radius: 4rem;
 }
 .text-field{
   margin: 5%;
+}
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 @media only screen and (min-width: #{$screen-desktop-min}) {
@@ -23,6 +29,7 @@ $screen-desktop-min: 600px;
     margin-left: 65%;
     margin-bottom: 3%;
     width:100%;
+    border-radius: 4rem;
   }
   .signup-form {
     background-color: var(--white);
