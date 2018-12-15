@@ -3,31 +3,7 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { financialInstitutionNames } from '../data/Constants';
-// import {TextMaskCustom} from './Utils';
-import MaskedInput from 'react-text-mask';
 
-
-const TextMaskCustom = (props) => {
-  const { inputRef, ...other } = props;
-  return (
-    <MaskedInput
-      {...other}
-      ref={inputRef}
-      mask={generateRegEx(50)}
-      placeholderChar={'\u2000'}
-    />
-  );
-};
-
-function generateRegEx(maxLength){
-  let arr = [];
-  let i=0;
-  while(i<maxLength){
-    arr.push(/\d/);
-    i++;
-  }
-  return arr;
-}
 /**
   * @param {props} 
   * EFT Bank Account form for 'EFT' payment method 
@@ -77,11 +53,12 @@ const EFT = (props)=>{
         label="ACCOUNT NUMBER"
         className="text-field"
         id="accountNumber"
-        InputProps={{
-          inputComponent: TextMaskCustom,
-          value:props.accountNumber,
-          onChange: props.handleChange('accountNumber'),
-        }}
+        type="text"
+        inputProps={{maxLength:20}}
+        error={props.isaccountNumberInvalid===true}
+        helperText={props.isaccountNumberInvalid?'Enter Numeric values(0-9)':''}
+        value={props.accountNumber}
+        onChange={(event)=>props.onChange(event)}
         name="accountNumber"
         style={{ margin: '2%', flexBasis: 310 }}
       />
@@ -91,13 +68,14 @@ const EFT = (props)=>{
         label="TRANSIT NUMBER"
         className="text-field"
         id="transitNumber"
+        type="text"
+        inputProps={{maxLength:20}}
+        error={props.istransitNumberInvalid===true}
+        helperText={props.istransitNumberInvalid?'Enter Numeric values(0-9)':''}
+        value={props.transitNumber}
+        onChange={(event)=>props.onChange(event)}
         name="transitNumber"
         style={{ margin: '2%', flexBasis: 310 }}
-        InputProps={{
-          inputComponent: TextMaskCustom,
-          value:props.transitNumber,
-          onChange: props.handleChange('transitNumber'),
-        }}
       />
     </Fragment>
   );

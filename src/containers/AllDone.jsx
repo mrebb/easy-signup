@@ -16,14 +16,20 @@ class AllDone extends Component {
     };
   }
 
+  /**
+   * Handles to go back on the screen when user press previous button
+   * Callback prop method received from parent
+   * Callback the reducer method to keep holding the data in state
+   * @memberof AllDone
+   */
   goPrevious = () => {
     const data = { ...this.state };
     this.props.goPrevious();
     this.props.createUser(data);
   };
   /**
-   * Handle form submission
-   * Calls reducer method
+   * Handle form submission to go next screen when user press next button
+   * Callback the reducer method to keep holding the data in global state
    * @memberof AllDone
    */
   onSubmit = event => {

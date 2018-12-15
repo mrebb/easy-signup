@@ -24,41 +24,53 @@ class AboutUser extends Component {
     };
   }
 
+  /**
+   /**
+   * Handles to go back on the screen when user press previous button
+   * Callback prop method received from parent
+   * Callback the reducer method to keep holding the data in state
+   * @memberof AboutUser
+   */
   goPrevious = () => {
     const data = { ...this.state };
     this.props.goPrevious();
     this.props.createUser(data);
   };
   /**
-   * Handle form submission
-   * Calls reducer method
+   * Handle form submission to go next screen when user press next button
+   * Callback the reducer method to keep holding the data in global state
    * @memberof AboutUser
    */
   onSubmit = event => {
     event.preventDefault();
     const data = { ...this.state };
-    const phoneNumberLength = data.phoneNumber.toString().trim().length;
-    if(phoneNumberLength<14){
+    const phoneNumberLength = data.phoneNumber.toString().replace(/\s/g, '').length;
+    if(phoneNumberLength<13){
       this.setState({isNumberInvalid:true});
     }
-    else{
+    else{ 
       this.props.goNext();
       this.props.createUser(data);
     }
   };
 
+  /**
+   * This should be only used when dealng with react-text-mask library
+   * Called by child component when input value changes on the form
+   * @memberof AboutUser
+   */
   handleChange = name => event => {
     const changedBit = {
       [name]: event.target.value,
     };
     this.setState(changedBit);
-    const phoneNumberLength = changedBit.phoneNumber.toString().trim().length;
-    if(phoneNumberLength===14){
+    const phoneNumberLength = changedBit.phoneNumber.toString().replace(/\s/g, '').length;
+    if(phoneNumberLength===13){
       this.setState({isNumberInvalid:false});
     }
-  };
+  };  
   /**
-   * Updates state as it recieves input data from text input
+   * Updates local state as it recieves input data from input fields
    *
    * @memberof AboutUser
    */

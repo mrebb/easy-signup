@@ -6,9 +6,9 @@ const initialState = {};
  *
  * signup reducer for handling user signup state
  * @export signup reducer
- * @param {*} [state=initialState]
- * @param {*} action
- * @returns updated state
+ * @param {initialState is always an empty object when user starts signup process} [state=initialState]
+ * @param {action delivered by action creators} action
+ * @returns latest state
  */
 export default function reducer(state = initialState, action) {
   
@@ -24,6 +24,7 @@ export default function reducer(state = initialState, action) {
         user[key] = data[key];
       }
     });
+    //reset when user changes the payment method so that form is always fresh
     if(user['paymentMethod']==='EFT (DIRECT DEBIT)'){
       user['creditCardNumber']='';
       user['nameOnCreditCard']='';

@@ -51,8 +51,8 @@ class Registration extends Component {
   };
 
   /**
-   * Handle form submission
-   * Calls reducer method 
+   * Handle form submission to go next screen when user press next button
+   * Callback the reducer method to keep holding the data in global state
    * @memberof Registration
    */
   onSubmit = event => {
@@ -72,7 +72,7 @@ class Registration extends Component {
   };
 
   /**
-   * @param {email}
+   * @param {user input on EMAIL field} email
    * @return boolean
    * @memberof Registration
    */

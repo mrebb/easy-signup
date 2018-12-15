@@ -4,7 +4,7 @@ const uuid = require('uuid/v1');
 
 //Action creators for users reducer
 
-// Save the user finally
+// Save the user finally when user submits on the `All done` page
 export const saveUser=(data)=>{
   const user = {...data};
   user.id = uuid();

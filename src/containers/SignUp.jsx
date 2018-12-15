@@ -17,10 +17,20 @@ class Signup extends Component {
     };
   }
 
+  /**
+   * Updates the local state to trigger switch case in render
+   * Increase the step
+   * @memberof Signup
+   */
   nextStep = () => {
     this.setState({ step: this.state.step + 1 });
   };
 
+  /**
+   * Updates the local state to trigger switch case in render
+   * Decrease the step
+   * @memberof Signup
+   */
   previousStep = () => {
     this.setState({ step: this.state.step - 1 });
   };

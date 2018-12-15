@@ -3,7 +3,7 @@ import TextField from '@material-ui/core/TextField';
 
 /**
   * @param {props} 
-  * Text input component for email fields
+  * Text input component for email fields on All done screen
   * @return text input field with given props 
   */
 const TextInput = props=> {
