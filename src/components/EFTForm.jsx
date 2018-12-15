@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 import { financialInstitutionNames } from '../data/Constants';
-import {TextMaskCustom} from './Utils';
 
 /**
   * @param {props} 
@@ -24,7 +23,7 @@ const EFT = (props)=>{
         className="text-field"
         id="financialInstitutionName"
         inputProps={{maxLength:50}}
-        style={{ margin: '2%', flexBasis: 650 }}
+        style={{ margin: '2%', flexBasis: 700 }}
         value={props.financialInstitutionName || 'BANK OF NOVA SCOTIA'}
         onChange={(event)=>props.onChange(event)}
       >
@@ -34,7 +33,7 @@ const EFT = (props)=>{
           </MenuItem>
         ))}
       </TextField>
-      <br />
+      
       <TextField
         required
         label="BANK BRANCH ADDRESS"
@@ -45,36 +44,38 @@ const EFT = (props)=>{
         value={props.bankBranchAddress || ''}
         inputProps={{maxLength:150}}
         name="bankBranchAddress"
-        style={{ margin: '2%', flexBasis: 650 }}
+        style={{ margin: '2%', flexBasis: 700 }}
         onChange={(event)=>props.onChange(event)}
       />
-      <br />
+      
       <TextField
         required
         label="ACCOUNT NUMBER"
         className="text-field"
         id="accountNumber"
-        InputProps={{
-          inputComponent: TextMaskCustom,
-          value:props.accountNumber,
-          onChange: props.handleChange('accountNumber'),
-        }}
+        type="text"
+        inputProps={{maxLength:20}}
+        error={props.isaccountNumberInvalid===true}
+        helperText={props.isaccountNumberInvalid?'Enter Numeric values(0-9)':''}
+        value={props.accountNumber}
+        onChange={(event)=>props.onChange(event)}
         name="accountNumber"
-        style={{ margin: '2%', flexBasis: 310 }}
+        style={{ margin: '2%', flexBasis: 335 }}
       />
-      <br />
+      
       <TextField
         required
         label="TRANSIT NUMBER"
         className="text-field"
         id="transitNumber"
+        type="text"
+        inputProps={{maxLength:20}}
+        error={props.istransitNumberInvalid===true}
+        helperText={props.istransitNumberInvalid?'Enter Numeric values(0-9)':''}
+        value={props.transitNumber}
+        onChange={(event)=>props.onChange(event)}
         name="transitNumber"
-        style={{ margin: '2%', flexBasis: 310 }}
-        InputProps={{
-          inputComponent: TextMaskCustom,
-          value:props.transitNumber,
-          onChange: props.handleChange('transitNumber'),
-        }}
+        style={{ margin: '2%', flexBasis: 335 }}
       />
     </Fragment>
   );

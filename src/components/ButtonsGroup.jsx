@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 
 /**
   * @param {props}
-  * Reusable 'Next' & 'Previous' button group for multiple screens
+  * @return Reusable 'Next' & 'Previous' button group for multiple screens
   */
 const ButtonsGroup = props => {
   const buttonText = props.buttonText || 'NEXT';

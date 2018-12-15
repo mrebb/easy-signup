@@ -9,6 +9,8 @@ import EFT from '../components/EFTForm';
 import CreditCardForm from '../components/CreditCardForm';
 import ButtonsGroup from '../components/ButtonsGroup';
 import FormHeader from '../components/FormHeader';
+import { checkForValidInput, checkForDataLength } from './Utils/Utils';
+import {AccountSetupInitialState} from './Utils/Utils';
 
 class AccountingSetup extends Component {
   constructor(props) {
@@ -27,6 +29,11 @@ class AccountingSetup extends Component {
       creditCardExpiry: this.props.user.creditCardExpiry || '',
       cvc: this.props.user.cvc || '',
       showEFT: true,
+      isaccountNumberInvalid: false,
+      istransitNumberInvalid: false,
+      iscreditCardNumberInvalid: false,
+      iscvcInvalid: false,
+      iscreditCardExpiryInvalid: false,
     };
   }
   componentDidMount() {
@@ -37,56 +44,122 @@ class AccountingSetup extends Component {
     }
   }
 
+  /**
+   * Handles to go back on the screen when user press previous button
+   * Callback prop method received from parent
+   * Callback the reducer method to keep holding the data in state
+   * @memberof AccountingSetup
+   */
   goPrevious = () => {
     const data = { ...this.state };
     this.props.goPrevious();
     this.props.createUser(data);
   };
   /**
-   * Handle form submission
-   * Calls reducer method
-   * @memberof AboutUser
+   * Handle form submission to go next screen when user press next button
+   * Callback the reducer method to keep holding the data in global state
+   * @memberof AccountingSetup
    */
   onSubmit = event => {
     event.preventDefault();
-    const data = { ...this.state };
-    this.props.goNext();
-    this.props.createUser(data);
+    if (
+      !this.state.iscreditCardNumberInvalid &&
+      !this.state.iscreditCardExpiryInvalid &&
+      !this.state.iscvcInvalid &&
+      !this.state.isaccountNumberInvalid &&
+      !this.state.istransitNumberInvalid
+    ) {
+      const data = { ...this.state };
+      this.props.goNext();
+      this.props.createUser(data);
+    }
   };
 
+  /**
+   * @param {field Name} name
+   * This should be only used when dealng with react-text-mask library
+   * Called by child component when input value changes on the form
+   * @memberof AccountingSetup
+   */
   handleChange = name => event => {
     const changedBit = {
       [name]: event.target.value,
     };
-    this.setState(changedBit);
+
+    if (name === 'creditCardExpiry') {
+      let field = 'is' + name + 'Invalid';
+      this.setStateAfterVerify(field, name, changedBit, 7);
+    } else {
+      this.setState(changedBit);
+    }
   };
 
+  /**
+   * Method for handling changing the state when user changes payment method
+   * @memberof AccountingSetup
+   */
   selectPaymentMethod = event => {
     this.onChange(event);
     event.target.value === 'EFT (DIRECT DEBIT)'
-      ? this.setState({ showEFT: true })
-      : this.setState({ showEFT: false });
+      ? this.setState({ showEFT: true,...AccountSetupInitialState})
+      : this.setState({ showEFT: false,...AccountSetupInitialState});  
   };
+
   /**
-   * Updates state as it recieves input data from text input
-   *
-   * @memberof AboutUser
+   * Updates local state as it recieves input data from input fields
+   * @memberof AccountingSetup
    */
   onChange = event => {
     const changedBit = {
       [event.target.name]: event.target.value,
     };
-    this.setState(changedBit);
+    const name = event.target.name;
+    if (name === 'creditCardNumber') {
+      let field = 'is' + name + 'Invalid';
+      this.setStateAfterVerify(field, name, changedBit, 16);
+    } else if (name === 'cvc') {
+      let field = 'is' + name + 'Invalid';
+      this.setStateAfterVerify(field, name, changedBit, 3);
+    } else if (name === 'accountNumber' || name === 'transitNumber') {
+      let field = 'is' + name + 'Invalid';
+      this.setStateAfterVerify(field, name, changedBit);
+    } else {
+      this.setState(changedBit);
+    }
   };
+
+  /**
+   * @param {dynamically generated flag to reuse the method} field
+   * @param {field name on the form} name
+   * @param {changed object} changedBit
+   * @param {minimum length of input expected by user} len
+   * @memberof AccountingSetup
+   */
+  setStateAfterVerify(field, name, changedBit, len) {
+    if (checkForValidInput(changedBit[name], name)) {
+      let changedFlag = {
+        [field]: true,
+      };
+      this.setState(changedFlag);
+    } else if (checkForDataLength(changedBit[name], len, name)) {
+      let changedFlag = {
+        [field]: true,
+      };
+      this.setState(changedFlag);
+      this.setState(changedBit);
+    } else {
+      let changedFlag = {
+        [field]: false,
+      };
+      this.setState(changedFlag);
+      this.setState(changedBit);
+    }
+  }
 
   render() {
     return (
-      <form
-        className="signup-form"
-        onSubmit={this.onSubmit}
-        autoComplete="off"
-      >
-        <FormHeader headerText="Accounting Setup"/>
+      <form className="signup-form" onSubmit={this.onSubmit} autoComplete="off">
+        <FormHeader headerText="Accounting Setup" />
         <div className="flex-wrap">
           <TextField
             required
@@ -95,7 +168,7 @@ class AccountingSetup extends Component {
             name="paymentMethod"
             className="text-field"
             id="paymentMethod"
-            style={{ margin: '2%', flexBasis: 310 }}
+            style={{ margin: '2%', flexBasis: 335 }}
             value={this.state.paymentMethod || 'EFT (DIRECT DEBIT)'}
             onChange={this.selectPaymentMethod}
           >
@@ -105,7 +178,6 @@ class AccountingSetup extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br />
           <TextField
             required
             select
@@ -113,7 +185,7 @@ class AccountingSetup extends Component {
             name="requestedTerms"
             className="text-field"
             id="requestedTerms"
-            style={{ margin: '2%', flexBasis: 310 }}
+            style={{ margin: '2%', flexBasis: 335 }}
             value={this.state.requestedTerms || 'NET 14'}
             onChange={this.onChange}
           >
@@ -123,20 +195,18 @@ class AccountingSetup extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br />
           <TextField
             required
             label="ACCOUNTING EMAIL"
             type="email"
             className="text-field"
             id="accountingEmail"
-            inputProps={{maxLength:50}}
+            inputProps={{ maxLength: 50 }}
             value={this.state.accountingEmail || ''}
             name="accountingEmail"
-            style={{ margin: '2%', flexBasis: 650 }}
+            style={{ margin: '2%', flexBasis: 700 }}
             onChange={this.onChange}
           />
-          <br />
           {this.state.showEFT ? (
             <EFT
               financialInstitutionName={this.state.financialInstitutionName}
@@ -144,6 +214,8 @@ class AccountingSetup extends Component {
               transitNumber={this.state.transitNumber}
               bankBranchAddress={this.state.bankBranchAddress}
               onChange={this.onChange}
+              isaccountNumberInvalid={this.state.isaccountNumberInvalid}
+              istransitNumberInvalid={this.state.istransitNumberInvalid}
               handleChange={this.handleChange}
             />
           ) : (
@@ -153,10 +225,13 @@ class AccountingSetup extends Component {
               nameOnCreditCard={this.state.nameOnCreditCard}
               creditCardExpiry={this.state.creditCardExpiry}
               cvc={this.state.cvc}
+              iscreditCardNumberInvalid={this.state.iscreditCardNumberInvalid}
+              iscvcInvalid={this.state.iscvcInvalid}
+              iscreditCardExpiryInvalid={this.state.iscreditCardExpiryInvalid}
+              handleChange={this.handleChange}
             />
           )}
-          <br />
-          <ButtonsGroup goPrevious={this.goPrevious}/>
+          <ButtonsGroup goPrevious={this.goPrevious} />
         </div>
       </form>
     );

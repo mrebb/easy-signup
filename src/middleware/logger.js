@@ -1,3 +1,4 @@
+// Logger for development environment
 const logger = store=>next=>action=>{
   console.log('1.previous state of app: ', store.getState());
   console.log('2.dispatching action..', action);

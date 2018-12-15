@@ -1,7 +1,25 @@
 import React, { Fragment} from 'react';
 import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
+import MaskedInput from 'react-text-mask';
 
+/**
+  * @param {props} 
+  * Generates custom input format with as per regex script in mask field
+  * Third party library to handle format on text input fields
+  */
+const TextMaskCustom = (props) => {
+  const { inputRef, ...other } = props;
+
+  return (
+    <MaskedInput
+      {...other}
+      ref={inputRef}
+      mask={[/[0-1]/, /[0-9]/, '/', /[2-3]/, /\d/, /\d/, /\d/]}
+      placeholderChar={'\u2000'}
+    />
+  );
+};
 /**
   * @param {props} 
   * Credit Card form for 'credit card' payment method 
@@ -16,16 +34,18 @@ const CreditCardForm = (props)=>{
       <TextField
         required
         label="CREDIT CARD NUMBER"
-        type="number"
+        type="text"
         className="text-field"
         id="creditCardNumber"
         inputProps={{maxLength:16}}
+        error={props.iscreditCardNumberInvalid===true}
+        helperText={props.iscreditCardNumberInvalid?'Enter 16 digit card number':''}
         value={props.creditCardNumber || ''}
         name="creditCardNumber"
-        style={{ margin: '2%', flexBasis: 650 }}
+        style={{ margin: '2%', flexBasis: 700 }}
         onChange={props.onChange}
       />
-      <br />
+      
       <TextField
         required
         label="NAME ON CREDIT CARD"
@@ -35,33 +55,39 @@ const CreditCardForm = (props)=>{
         inputProps={{maxLength:50}}
         value={props.nameOnCreditCard || ''}
         name="nameOnCreditCard"
-        style={{ margin: '2%', flexBasis: 650 }}
+        style={{ margin: '2%', flexBasis: 700 }}
         onChange={props.onChange}
       />
-      <br />
+      
       <TextField
         required
         label="EXPIRY (MM/YYYY)"
-        type="text"
+        placeholder="MM/YYYY"
         className="text-field"
         id="creditCardExpiry"
-        inputProps={{maxLength:7}}
-        value={props.creditCardExpiry || ''}
+        error={props.iscreditCardExpiryInvalid===true}
+        helperText={props.iscreditCardExpiryInvalid?'Enter valid expiry date in (MM/YYYY) format':''}
         name="creditCardExpiry"
-        style={{ margin: '2%', flexBasis: 310 }}
-        onChange={props.onChange}
+        style={{ margin: '2%', flexBasis: 335 }}
+        InputProps={{
+          inputComponent: TextMaskCustom,
+          value:props.creditCardExpiry,
+          onChange: props.handleChange('creditCardExpiry'),
+        }}
       />
-      <br />
+      
       <TextField
         required
         label="CVC"
         type="text"
         className="text-field"
+        error={props.iscvcInvalid===true}
+        helperText={props.iscvcInvalid?'Enter 3 digit CVC code':''}
         id="cvc"
         inputProps={{maxLength:3}}
         value={props.cvc || ''}
         name="cvc"
-        style={{ margin: '2%', flexBasis: 310 }}
+        style={{ margin: '2%', flexBasis: 335 }}
         onChange={props.onChange}
       />
     </Fragment>

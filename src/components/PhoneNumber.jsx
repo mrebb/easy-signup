@@ -2,6 +2,11 @@ import React, { Fragment } from 'react';
 import MaskedInput from 'react-text-mask';
 import TextField from '@material-ui/core/TextField';
 
+/**
+  * @param {props} 
+  * Generates custom input format with as per regex script in mask field
+  * Third party library to handle format on text input fields
+  */
 const TextMaskCustom = (props) => {
   const { inputRef, ...other } = props;
 
@@ -11,11 +16,15 @@ const TextMaskCustom = (props) => {
       ref={inputRef}
       mask={['(', /[1-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]}
       placeholderChar={'\u2000'}
-      // showMask
     />
   );
 };
 
+/**
+  * @param {props} 
+  * Text input component for phone number field on `About You` screen
+  * @return text input field with phone number format
+  */
 const PhoneNumberField = props => {
   const { phoneNumber,onChange,isNumberInvalid } = props;
   return(
@@ -29,7 +38,7 @@ const PhoneNumberField = props => {
         name="phoneNumber"
         error= {isNumberInvalid===true}
         helperText={isNumberInvalid?'Invalid Phone Number':''}   
-        style={{margin:'2%',flexBasis:650}}
+        style={{margin:'2%',flexBasis:700}}
         InputProps={{
           inputComponent: TextMaskCustom,
           value:phoneNumber,
