@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { createUser } from '../store/actions/signup-action';
 import { saveUser } from '../store/actions/users-action';
-import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
-import './styles/AboutUser.scss';
-const roles = ['Head Chef','Sous Chef', 'Purchasing', 'Owner'];
-const restaurantTypes= ['One Location','Regional(3-5 Locations)','National Chain','Grocery'];
+import { roles, restaurantTypes } from '../data/Constants';
+import ButtonsGroup from '../components/ButtonsGroup';
+import FormHeader from '../components/FormHeader';
+import PhoneNumberField from '../components/PhoneNumber';
 
 class AboutUser extends Component {
   constructor(props) {
@@ -15,36 +15,51 @@ class AboutUser extends Component {
     this.state = {
       name: this.props.user.name || '',
       role: this.props.user.role || 'Head Chef',
-      restaurantName: this.props.user.restaurantName ||  '',
-      restaurantType: this.props.user.restaurantType ||  'Regional(3-5 Locations)',
+      restaurantName: this.props.user.restaurantName || '',
+      restaurantType:
+        this.props.user.restaurantType || 'Regional(3-5 Locations)',
       phoneNumber: this.props.user.phoneNumber || '',
       companyAddress: this.props.user.companyAddress || '',
+      isNumberInvalid:false,
     };
   }
-  
-  goPrevious = () =>{
-    const data = {...this.state};
+
+  goPrevious = () => {
+    const data = { ...this.state };
     this.props.goPrevious();
-    this.props.createUser(data); 
-  }
+    this.props.createUser(data);
+  };
   /**
    * Handle form submission
-   * Calls reducer method 
+   * Calls reducer method
    * @memberof AboutUser
    */
   onSubmit = event => {
     event.preventDefault();
-    const data = {...this.state};
-    console.log('data with next click',data);
-    this.props.goNext();
-    this.props.createUser(data);
-    // this.props.onSubmit(data);
+    const data = { ...this.state };
+    const phoneNumberLength = data.phoneNumber.toString().trim().length;
+    if(phoneNumberLength<14){
+      this.setState({isNumberInvalid:true});
+    }
+    else{
+      this.props.goNext();
+      this.props.createUser(data);
+    }
   };
 
-
+  handleChange = name => event => {
+    const changedBit = {
+      [name]: event.target.value,
+    };
+    this.setState(changedBit);
+    const phoneNumberLength = changedBit.phoneNumber.toString().trim().length;
+    if(phoneNumberLength===14){
+      this.setState({isNumberInvalid:false});
+    }
+  };
   /**
    * Updates state as it recieves input data from text input
-   * 
+   *
    * @memberof AboutUser
    */
   onChange = event => {
@@ -56,10 +71,8 @@ class AboutUser extends Component {
 
   render() {
     return (
-      <form  className="registration-form" onSubmit={this.onSubmit} autoComplete="off">
-        <div className="form-header">
-          <h1>About You</h1>
-        </div>
+      <form className="signup-form" onSubmit={this.onSubmit} autoComplete="off">
+        <FormHeader headerText="About You" />
         <div className="flex-wrap">
           <TextField
             required
@@ -67,10 +80,10 @@ class AboutUser extends Component {
             type="text"
             className="text-field"
             id="name"
-            maxLength="50"
+            inputProps={{maxLength:50}}
             placeholder="YOUR NAME"
-            value={this.state.name||''}
-            style={{margin:'2%',flexBasis:310}}
+            value={this.state.name || ''}
+            style={{ margin: '2%', flexBasis: 310 }}
             name="name"
             onChange={this.onChange}
           />
@@ -82,7 +95,7 @@ class AboutUser extends Component {
             name="role"
             className="text-field"
             id="role"
-            style={{margin:'2%',flexBasis:310}}
+            style={{ margin: '2%', flexBasis: 310 }}
             value={this.state.role || 'Head Chef'}
             onChange={this.onChange}
           >
@@ -92,19 +105,18 @@ class AboutUser extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br/>
+          <br />
           <TextField
             required
             label="RESTAURANT NAME"
             type="text"
-            maxLength="50"
+            inputProps={{maxLength:50}}
             className="text-field"
             id="restaurantName"
             placeholder="RESTAURANT NAME"
             value={this.state.restaurantName || ''}
-        
             name="restaurantName"
-            style={{margin:'2%',flexBasis:310}}
+            style={{ margin: '2%', flexBasis: 310 }}
             onChange={this.onChange}
           />
           <br />
@@ -115,7 +127,7 @@ class AboutUser extends Component {
             name="restaurantType"
             className="text-field"
             id="restaurantType"
-            style={{margin:'2%',flexBasis:310}}
+            style={{ margin: '2%', flexBasis: 310 }}
             value={this.state.restaurantType || 'Regional(3-5 Locations)'}
             onChange={this.onChange}
           >
@@ -125,20 +137,11 @@ class AboutUser extends Component {
               </MenuItem>
             ))}
           </TextField>
-          <br/>
-          <TextField
-            required
-            label="PHONE NUMBER"
-            type="number"
-            className="text-field"
-            id="phoneNumber"
-            // maxLength="15"
-            placeholder="(XXX)-XXX-XXXX"
-            value={this.state.phoneNumber  || ''}
-          
-            name="phoneNumber"
-            style={{margin:'2%',flexBasis:650}}
-            onChange={this.onChange}
+          <br />
+          <PhoneNumberField
+            phoneNumber={this.state.phoneNumber}
+            onChange={this.handleChange}
+            isNumberInvalid={this.state.isNumberInvalid}
           />
           <br />
           <TextField
@@ -146,36 +149,16 @@ class AboutUser extends Component {
             label="COMPANY ADDRESS"
             type="text"
             className="text-field"
+            inputProps={{maxLength:150}}
             id="companyAddress"
             placeholder="COMPANY ADDRESS"
-            value={this.state.companyAddress  || ''}
-           
+            value={this.state.companyAddress || ''}
             name="companyAddress"
-            style={{margin:'2%',flexBasis:650}}
+            style={{ margin: '2%', flexBasis: 650 }}
             onChange={this.onChange}
           />
-          <br/>
-          <div className="BtnGroup">
-            <Button
-              label="PREVIOUS"
-              onClick={this.goPrevious}
-              id="previous"
-              type="button"
-              variant="contained"
-              color="primary"
-            >
-            PREVIOUS
-            </Button>
-            <Button
-              label="NEXT"
-              id="next-with-previous"
-              type="submit"
-              variant="contained"
-              color="primary"
-            >
-            NEXT
-            </Button>
-          </div>
+          <br />
+          <ButtonsGroup goPrevious={this.goPrevious} />
         </div>
       </form>
     );
@@ -186,10 +169,9 @@ const mapStateToProps = state => ({
   user: state.signupState,
   users: state.usersState,
 });
-const mapDispatchToProps = {createUser,saveUser};
+const mapDispatchToProps = { createUser, saveUser };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(AboutUser);
-

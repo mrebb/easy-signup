@@ -7,15 +7,13 @@ import AboutUser from './AboutUser';
 import DeliverySchedule from './DeliverySchedule';
 import AccountingSetup from './AccountingSetup';
 import AllDone from './AllDone';
-import FinalScreen from './FinalScreen';
-import './styles/SignUp.scss';
+import FinalScreen from '../components/FinalScreen';
 
 class Signup extends Component {
   constructor(props) {
     super(props);
     this.state = {
       step: 1,
-      showEFT: 'default',
     };
   }
 
@@ -25,10 +23,6 @@ class Signup extends Component {
 
   previousStep = () => {
     this.setState({ step: this.state.step - 1 });
-  };
-  
-  savePaymentMethod = flag => {
-    this.setState({ showEFT: flag });
   };
   
   render() {
@@ -61,8 +55,6 @@ class Signup extends Component {
     case 4: {
       return (
         <AccountingSetup
-          updatePaymentMethod={this.savePaymentMethod}
-          paymentMethod={this.state.showEFT}
           goNext={this.nextStep}
           goPrevious={this.previousStep}
         />

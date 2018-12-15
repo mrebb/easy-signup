@@ -22,7 +22,7 @@
   "nameOnCreditCard": "",
   "creditCardExpiry": "",
   "cvc": "",
-  "email1":"",
-  "email2":"",
-  "email3":""
+  "emailProspect1":"",
+  "emailProspect2":"",
+  "emailProspect3":""
 }

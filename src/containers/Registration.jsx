@@ -4,7 +4,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { createUser } from '../store/actions/signup-action';
 import { saveUser } from '../store/actions/users-action';
-import './styles/Registration.scss';
+import FormHeader from '../components/FormHeader';
 
 class Registration extends Component {
   constructor(props) {
@@ -86,23 +86,19 @@ class Registration extends Component {
   render() {
     return (
       <Fragment>
-       
-        {/* <div className="input-form"> */}
         <form
-          className="registration-form"
+          className="signup-form"
           onSubmit={this.onSubmit}
           autoComplete="off"
         >
-          <div className="form-header">
-            <h1>Registration</h1>
-          </div>
+          <FormHeader headerText="Registration"/>
           <div className="flex-wrap">
             <TextField
               required
               type="email"
               label="EMAIL"
               className="text-field"
-              maxLength="50"
+              inputProps={{maxLength:50}}
               error= {this.state.isUserDuplicate===true}
               helperText={this.state.isUserDuplicate?'Email address already registered':''}
               id="email"
@@ -118,7 +114,7 @@ class Registration extends Component {
               required
               type="password"
               label="PASSWORD"
-              maxLength="50"
+              inputProps={{maxLength:50}}
               placeholder=""
               className="text-field"
               id="password"
@@ -134,6 +130,7 @@ class Registration extends Component {
               type="password"
               label="CONFIRM PASSWORD"
               placeholder=""
+              inputProps={{maxLength:50}}
               error= {this.state.error}
               helperText={this.state.password!==this.state.confirmPassword?'passwords do not match':''}
               className="text-field"

@@ -24,6 +24,18 @@ export default function reducer(state = initialState, action) {
         user[key] = data[key];
       }
     });
+    if(user['paymentMethod']==='EFT (DIRECT DEBIT)'){
+      user['creditCardNumber']='';
+      user['nameOnCreditCard']='';
+      user['creditCardExpiry']='';
+      user['cvc']='';
+    }
+    else if(user['paymentMethod']==='CREDIT CARD'){
+      user['financialInstitutionName']='';
+      user['bankBranchAddress']='';
+      user['accountNumber']='';
+      user['transitNumber']='';
+    }
     return { ...state, ...user };
   }
 

@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import './styles/FInalScreen.scss';
+import './styles/FinalScreen.scss';
 import allDoneLogo from '../data/assets/alldone.png';
 
 class FinalScreen extends Component {
   render() {
     return (
-      <form className="registration-form">
+      <form className="signup-form">
         <div className="form-header">
           <h1>All Done</h1>
           <img src={allDoneLogo} alt="All-Done-Logo" />
@@ -21,7 +21,7 @@ class FinalScreen extends Component {
         </div>
         <div className="flex-wrap">
           <Button
-            label="NEXT"
+            label="CONTACT SALES REP"
             id="contactSales"
             type="button"
             variant="contained"
