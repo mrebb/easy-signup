@@ -10,7 +10,7 @@ import CreditCardForm from '../components/CreditCardForm';
 import ButtonsGroup from '../components/ButtonsGroup';
 import FormHeader from '../components/FormHeader';
 import { checkForValidInput, checkForDataLength } from './Utils/Utils';
-import {AccountSetupInitialState} from './Utils/Utils';
+import { AccountSetupInitialState } from './Utils/Utils';
 
 class AccountingSetup extends Component {
   constructor(props) {
@@ -37,10 +37,17 @@ class AccountingSetup extends Component {
     };
   }
   componentDidMount() {
-    if (this.props.user.paymentMethod === 'CREDIT CARD') {
-      this.setState({ showEFT: false });
-    } else if (this.props.user.paymentMethod === 'EFT (DIRECT DEBIT)') {
-      this.setState({ showEFT: true });
+    this.props.user.paymentMethod === 'CREDIT CARD'
+      ? this.setState({ showEFT: false })
+      : this.setState({ showEFT: true });
+    if(this.props.user.creditCardNumber&&this.props.user.creditCardNumber.replace(/\s/g, '').length<16){
+      this.setState({iscreditCardNumberInvalid:true});
+    }
+    if(this.props.user.creditCardExpiry&&this.props.user.creditCardExpiry.replace(/\s/g, '').length<7){
+      this.setState({iscreditCardExpiryInvalid:true});
+    }
+    if(this.props.user.cvc&&this.props.user.cvc.replace(/\s/g, '').length<3){
+      this.setState({iscvcInvalid:true});
     }
   }
 
@@ -63,6 +70,14 @@ class AccountingSetup extends Component {
   onSubmit = event => {
     event.preventDefault();
     if (
+      (this.state.isaccountNumberInvalid ||
+        this.state.istransitNumberInvalid) &&
+      (this.state.accountNumber && this.state.transitNumber)
+    ) {
+      const data = { ...this.state };
+      this.props.goNext();
+      this.props.createUser(data);
+    } else if (
       !this.state.iscreditCardNumberInvalid &&
       !this.state.iscreditCardExpiryInvalid &&
       !this.state.iscvcInvalid &&
@@ -101,8 +116,8 @@ class AccountingSetup extends Component {
   selectPaymentMethod = event => {
     this.onChange(event);
     event.target.value === 'EFT (DIRECT DEBIT)'
-      ? this.setState({ showEFT: true,...AccountSetupInitialState})
-      : this.setState({ showEFT: false,...AccountSetupInitialState});  
+      ? this.setState({ showEFT: true, ...AccountSetupInitialState })
+      : this.setState({ showEFT: false, ...AccountSetupInitialState });
   };
 
   /**
@@ -123,6 +138,13 @@ class AccountingSetup extends Component {
     } else if (name === 'accountNumber' || name === 'transitNumber') {
       let field = 'is' + name + 'Invalid';
       this.setStateAfterVerify(field, name, changedBit);
+    } else if (name === 'financialInstitutionName') {
+      this.setState(changedBit);
+      this.setState({
+        bankBranchAddress: '',
+        accountNumber: '',
+        transitNumber: '',
+      });
     } else {
       this.setState(changedBit);
     }
