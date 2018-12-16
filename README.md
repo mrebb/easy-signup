@@ -51,6 +51,7 @@ Build an application that provides interface for new user to signup and guides t
     - input type validations
     - All remaining fields validated for length
     - Routing & account number fields max length (20 digits) vaidation
+    - Clear bank account information fields when bank name is changed by user so that user won't get forget to fill fields for newly selected bank.
 - [x] Optional Email guest list: 
     - Check for email type
 - [x] Final screen: 
@@ -59,12 +60,10 @@ Build an application that provides interface for new user to signup and guides t
 ***
 ## Future improvements
 - [] Accounting Setup: 
-    - Clear bank account information fields when bank name is changed by user so that user won't get forget to fill fields for newly selected bank.
-    - Currently from payment method window, if user goes back with previous click and comes back on to payment screen, warning messages are reset. User won't see warning messages untill user touches any of those fields.
     - Add disclaimer text on Accounting setup screen
 - [] Refactoring: 
     - Move state management for error flags to redux instead of local state. 
-    - Reuse the components or methods across application and move them to utils.
+    - Reuse the components or methods across application and move them to utils or redux store.
 - [] User Experience: 
     - Mobile version dropdown to have native select drop downs rather than web based select dropdowns.
     - better resizing of fields
